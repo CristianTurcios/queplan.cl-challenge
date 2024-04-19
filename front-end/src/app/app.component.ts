@@ -1,9 +1,9 @@
-import { WebSocketService } from './services/webSocket/web-socket.service';
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { EventService } from './services/event/event.service';
+import { AfterViewInit, ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { merge, of as observableOf } from 'rxjs';
-import { catchError, concatMap, map, startWith, switchMap } from 'rxjs/operators';
+import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { FriendsService } from './services/friends/friends.service';
 import { IFriends } from './models/friends.interface';
 
@@ -22,16 +22,29 @@ export class AppComponent implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
+    private cd: ChangeDetectorRef,
+    private eventService: EventService,
     private friendsService: FriendsService,
-    private webSocketService: WebSocketService
   ) { }
 
   ngOnInit(): void {
-    this.listenSocketServer();
+    this.listenServerEvents();
   }
 
   ngAfterViewInit(): void {
     this.getFriends();
+  }
+
+  listenServerEvents() {
+    this.eventService.getEventData().subscribe({
+      next: (eventData: any) => {
+        const newData = JSON.parse(eventData);
+        console.log('value', newData);
+        const index = this.data.findIndex((item) => newData.id === item.id);
+        this.data[index] = eventData;
+        this.cd.detectChanges();
+      }
+    });
   }
 
   getFriends(): void {
@@ -57,26 +70,5 @@ export class AppComponent implements AfterViewInit {
         }),
       )
       .subscribe(data => this.data = data);
-  }
-
-  listenSocketServer(): void {
-    this.webSocketService.getMessage() 
-    
-    // here we want to listen to an event from the socket.io server
-    // this.webSocketService.listen('message').subscribe((data) => {
-    //   console.log('====================================');
-    //   console.log('DATA', data);
-    //   console.log('====================================');
-    // })
-  }
-
-  sendMessage() {
-    setTimeout(() => {
-      this.webSocketService.sendMessage('Si funciona');
-    }, 10000);
-  }
-
-  ngOnDestroy() {
-    this.webSocketService.disconnect();
   }
 }

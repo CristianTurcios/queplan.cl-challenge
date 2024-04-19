@@ -1,26 +1,46 @@
+const express = require('express');
+const http = require('http');
+const cors = require('cors');
 require("dotenv").config();
-const { client } = require('./util/db.js');
-const { actionOnNotification } = require("./util/notification.js");
-const io = require("socket.io");
-const server = io.listen(8000);
+const { Client } = require("pg");
 
-server.on("connection", function (socket) {
-  console.log("client id - " + socket.id);
+const app = express();
+const server = http.createServer(app);
+app.use(cors());
 
-  client.connect((err, client) => {
-    if (err) {
-      console.log("error in db connection");
-    } else {
-      client.query("LISTEN customer_update_notification");
-      client.on("notification", (msg) => {
-        actionOnNotification(msg.channel, msg.payload, socket);
+app.get("/events", async (req, res) => {
+    try {
+      const headers = {
+        "Content-Type": "text/event-stream",
+        "Cache-Control": "no-cache",
+        Connection: "keep-alive",
+        "Access-Control-Allow-Origin": "*",
+      };
+
+      res.writeHead(200, headers);
+
+      const client = new Client({
+        user: process.env.POSTGRES_USER,
+        password: process.env.POSTGRES_PASSWORD,
+        host: process.env.POSTGRES_HOST,
+        port: process.env.POSTGRES_PORT,
+        database: process.env.POSTGRES_DB,
+        ssl: {
+          rejectUnauthorized: false,
+        },
       });
+
+      await client.connect();
+      await client.query("LISTEN friends_update_notification");
+
+      client.on("notification", async (data) => {
+        res.write(`data: ${JSON.stringify(data.payload)}\n\n`);
+      });
+    } catch (err) {
+      next(err);
     }
-  });
+});
 
-  socket.on("message", (data) => {
-    console.log("FROM CLIENT::", data);
-  });
-
-  socket.emit("message", "HELLO");
+server.listen(process.env.APP_PORT || 8000, () => {
+  console.log("server started at port", 8000);
 });
