@@ -37,11 +37,13 @@ export class AppComponent implements AfterViewInit {
 
   listenServerEvents() {
     this.eventService.getEventData().subscribe({
-      next: (eventData: any) => {
-        const newData = JSON.parse(eventData);
-        console.log('value', newData);
+      next: (eventData: string) => {
+        const newData: IFriends = JSON.parse(JSON.parse(eventData));
         const index = this.data.findIndex((item) => newData.id === item.id);
-        this.data[index] = eventData;
+
+        this.data[index].name = newData.name;
+        this.data[index].gender = newData.gender;
+
         this.cd.detectChanges();
       }
     });

@@ -10,8 +10,8 @@ export class EventService {
 
   constructor() {}
 
-  getEventData() {
-    return new Observable(obs => {
+  getEventData(): Observable<string> {
+    return new Observable((obs) => {
       this.sse = new EventSource(`${environment.SERVER_EVENT}/events`);
 
       this.sse.onerror = (error) => {
@@ -19,7 +19,7 @@ export class EventService {
       }
 
       this.sse.onmessage = (message) => {        
-        obs.next(JSON.parse(message.data));
+        obs.next(message.data);
       }
     })
   }
