@@ -30,10 +30,22 @@
         <td mat-cell *matCellDef="let row">{{ row.name }}</td>
       </ng-container>
 
+      <!-- Updated Name Column -->
+      <ng-container matColumnDef="updatedName">
+        <th mat-header-cell *matHeaderCellDef>Updated Name</th>
+        <td mat-cell *matCellDef="let row">{{ row?.updatedName }}</td>
+      </ng-container>
+
       <!-- Gender Column -->
       <ng-container matColumnDef="gender">
         <th mat-header-cell *matHeaderCellDef>Gender</th>
         <td mat-cell *matCellDef="let row">{{ row.gender }}</td>
+      </ng-container>
+
+      <!-- Gender Column -->
+      <ng-container matColumnDef="updatedGender">
+        <th mat-header-cell *matHeaderCellDef>Updated Gender</th>
+        <td mat-cell *matCellDef="let row">{{ row?.updatedGender }}</td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

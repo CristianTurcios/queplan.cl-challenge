@@ -16,6 +16,7 @@ export class AppComponent implements AfterViewInit {
   resultsLength = 0;
   isLoadingResults = true;
   data: Array<IFriends> = [];
+  // Initial Columns, 2 extra columns will be added dynamically if a change in database occurs
   displayedColumns: string[] = ['id', 'name', 'gender'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -41,10 +42,15 @@ export class AppComponent implements AfterViewInit {
         const newData: IFriends = JSON.parse(JSON.parse(eventData));
         const index = this.data.findIndex((item) => newData.id === item.id);
 
-        this.data[index].name = newData.name;
-        this.data[index].gender = newData.gender;
+        if(index > 0) {
+          // Add columns dynamically, only if a value changes in database
+          this.displayedColumns.push('updatedName');
+          this.displayedColumns.push('updatedGender');
 
-        this.cd.detectChanges();
+          this.data[index].updatedName = newData.name;
+          this.data[index].updatedGender = newData.gender;
+          this.cd.detectChanges();
+        }
       }
     });
   }
