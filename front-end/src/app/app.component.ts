@@ -3,7 +3,7 @@ import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { merge, of as observableOf } from 'rxjs';
-import { catchError, map, startWith, switchMap } from 'rxjs/operators';
+import { catchError, concatMap, map, startWith, switchMap } from 'rxjs/operators';
 import { FriendsService } from './services/friends/friends.service';
 import { IFriends } from './models/friends.interface';
 
@@ -60,6 +60,8 @@ export class AppComponent implements AfterViewInit {
   }
 
   listenSocketServer(): void {
+    this.webSocketService.getMessage() 
+    
     // here we want to listen to an event from the socket.io server
     // this.webSocketService.listen('message').subscribe((data) => {
     //   console.log('====================================');
@@ -70,7 +72,7 @@ export class AppComponent implements AfterViewInit {
 
   sendMessage() {
     setTimeout(() => {
-      this.webSocketService.emit('messsage', 'Angular');
+      this.webSocketService.sendMessage('Si funciona');
     }, 10000);
   }
 
