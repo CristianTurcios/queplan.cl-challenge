@@ -1,7 +1,8 @@
+import { AbstractEntity } from '../../common/entities';
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity('my_friends')
-export class MyFriend {
+export class MyFriend extends AbstractEntity {
   @PrimaryGeneratedColumn() // Auto-incremented primary key
   id: number;
 

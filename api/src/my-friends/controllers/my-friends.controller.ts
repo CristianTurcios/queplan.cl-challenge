@@ -6,12 +6,19 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
+  HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
-import { MyFriendsService } from './my-friends.service';
-import { CreateMyFriendDto } from './dto/create-my-friend.dto';
-import { UpdateMyFriendDto } from './dto/update-my-friend.dto';
+import { MyFriendsService } from '../services/my-friends.service';
+import { CreateMyFriendDto } from '../dto/create-my-friend.dto';
+import { UpdateMyFriendDto } from '../dto/update-my-friend.dto';
+import { ApiTags } from '@nestjs/swagger';
+import { PageDto, PageOptionsDto } from 'src/common/dtos';
+import { ApiPaginatedResponse } from 'src/common/decorators/api-paginated-response.decorator';
 
 @Controller('my-friends')
+@ApiTags('My-Friends')
 export class MyFriendsController {
   constructor(private readonly myFriendsService: MyFriendsService) {}
 
@@ -21,8 +28,12 @@ export class MyFriendsController {
   }
 
   @Get()
-  findAll() {
-    return this.myFriendsService.findAll();
+  @HttpCode(HttpStatus.OK)
+  @ApiPaginatedResponse(CreateMyFriendDto)
+  findAll(
+    @Query() pageOptionsDto: PageOptionsDto,
+  ): Promise<PageDto<CreateMyFriendDto>> {
+    return this.myFriendsService.findAll(pageOptionsDto);
   }
 
   @Get(':id')
