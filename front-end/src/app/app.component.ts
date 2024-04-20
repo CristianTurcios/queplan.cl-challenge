@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  ChangeDetectorRef,
   Component,
   OnDestroy,
   OnInit,
@@ -28,6 +29,7 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
   displayedColumns: Set<Columns> = new Set(['id', 'name', 'gender']);
 
   constructor(
+    private cdr: ChangeDetectorRef,
     private serverEventsService: ServerEventsService,
     private friendsService: FriendsService
   ) {}
@@ -38,6 +40,7 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.getFriends();
+    this.cdr.detectChanges();
   }
 
   listenServerEvents() {
@@ -82,10 +85,6 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
     this.displayedColumns.add('updatedGender');
     this.data[index].updatedName = eventData.name;
     this.data[index].updatedGender = eventData.gender;
-  }
-
-  showAlert(): void {
-    console.log('asdasd');
   }
 
   ngOnDestroy() {

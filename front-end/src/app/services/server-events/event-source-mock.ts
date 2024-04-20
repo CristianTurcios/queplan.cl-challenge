@@ -18,4 +18,7 @@ export class EventSourceMock {
   emit(data: any) {
     this.listeners.forEach((cb: any) => cb(data));
   }
+
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  close() {}
 }

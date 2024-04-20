@@ -18,6 +18,13 @@ describe('EventSourceService', () => {
     service = new ServerEventsService(zone as unknown as NgZone);
   });
 
+  describe('getEventSource', () => {
+    it('should return an eventSource instance', () => {
+      const eventSource = service.getEventSource('http://localhost:8000/sse');
+      expect(eventSource).toBeDefined();
+    });
+  });
+
   describe('connectToServerSentEvents', () => {
     it('should open connection and listen to events', (done: DoneFn) => {
       spyOn(service, 'getEventSource').and.returnValue(eventSourceMock);
@@ -45,6 +52,14 @@ describe('EventSourceService', () => {
       });
 
       eventSourceMock.emitError(new Error('error'));
+    });
+  });
+
+  describe('close', () => {
+    it('should not call close() if eventSource is not defined', () => {
+      spyOn(eventSourceMock, 'close');
+      service.close();
+      expect(eventSourceMock.close).not.toHaveBeenCalled();
     });
   });
 });

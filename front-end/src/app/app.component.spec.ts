@@ -9,7 +9,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { testUtils } from 'src/utils/test-utils';
 import { By } from '@angular/platform-browser';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -41,6 +41,13 @@ describe('AppComponent', () => {
 
     fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
+    serverEventsService.connectToServerSentEvents.and.returnValue(
+      of({
+        id: 1,
+        name: 'Cristian',
+        gender: 'male',
+      })
+    );
   }));
 
   it('should create the app', () => {
@@ -66,16 +73,6 @@ describe('AppComponent', () => {
   });
 
   describe('listenServerEvents', () => {
-    beforeEach(() => {
-      serverEventsService.connectToServerSentEvents.and.returnValue(
-        of({
-          id: 1,
-          name: 'Cristian',
-          gender: 'male',
-        })
-      );
-    });
-
     it('should call serverEventsService.connectToServerSentEvents', () => {
       spyOn(component, 'insertChanges');
       component.listenServerEvents();
@@ -96,6 +93,60 @@ describe('AppComponent', () => {
       component.listenServerEvents();
       expect(serverEventsService.connectToServerSentEvents).toHaveBeenCalled();
       expect(component.insertChanges).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('insertChanges', () => {
+    it('should modify friend data', () => {
+      const originalData = { id: 1, name: 'Cristian', gender: 'male' };
+      component.data = [originalData];
+      const eventData = { id: 1, name: 'Javier', gender: 'female' };
+      component.insertChanges(eventData, 0);
+      expect(component.data[0].updatedName).toEqual('Javier');
+      expect(component.data[0].updatedGender).toEqual('female');
+    });
+  });
+
+  describe('getFriends', () => {
+    it('should call getFriends to retrieve api values', () => {
+      friendsService.getFriends.and.returnValue(
+        of({
+          items: [{ id: 1, name: 'Javier', gender: 'male' }],
+          meta: {
+            totalItems: 12,
+            itemCount: 10,
+            itemsPerPage: 10,
+            totalPages: 2,
+            currentPage: 1,
+          },
+          links: {
+            first: '/my-friends?limit=10',
+            previous: '',
+            next: '/my-friends?page=2&limit=10',
+            last: '/my-friends?page=2&limit=10',
+          },
+        })
+      );
+
+      component.data = [];
+      fixture.detectChanges();
+
+      component.getFriends();
+      expect(friendsService.getFriends).toHaveBeenCalled();
+      expect(component.data[0].name).toEqual('Javier');
+    });
+
+    it('should handle error if getFriends fail and return empty values', () => {
+      friendsService.getFriends.and.returnValue(
+        throwError(() => new Error('error'))
+      );
+
+      component.data = [{ id: 1, name: 'Cristian', gender: 'male' }];
+      fixture.detectChanges();
+
+      component.getFriends();
+      expect(friendsService.getFriends).toHaveBeenCalled();
+      expect(component.data).toEqual([]);
     });
   });
 
