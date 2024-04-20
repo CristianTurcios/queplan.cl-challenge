@@ -5,7 +5,7 @@ import { MyFriend } from './entities/my-friend.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([MyFriend])], // add this line
+  imports: [TypeOrmModule.forFeature([MyFriend])],
   controllers: [MyFriendsController],
   providers: [MyFriendsService],
 })

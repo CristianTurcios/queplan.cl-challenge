@@ -1,32 +1,38 @@
 import { EventService } from './services/event/event.service';
-import { AfterViewInit, ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { merge, of as observableOf } from 'rxjs';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { FriendsService } from './services/friends/friends.service';
-import { IFriends } from './models/friends.interface';
+import { Friend } from './models/friend';
+import { Columns } from './types/displayed-columns';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements AfterViewInit {
-  resultsLength = 0;
+export class AppComponent implements AfterViewInit, OnInit {
   isLoadingResults = true;
-  data: Array<IFriends> = [];
-  // Initial Columns, 2 extra columns will be added dynamically if a change in database occurs
-  displayedColumns: string[] = ['id', 'name', 'gender'];
-
+  data: Array<Friend> = [];
+  totalData = 0;
+  displayedColumns: Set<Columns> = new Set(['id', 'name', 'gender']);
+  pageSizes = [3, 5, 7];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     private cd: ChangeDetectorRef,
     private eventService: EventService,
-    private friendsService: FriendsService,
-  ) { }
+    private friendsService: FriendsService
+  ) {}
 
   ngOnInit(): void {
     this.listenServerEvents();
@@ -38,20 +44,17 @@ export class AppComponent implements AfterViewInit {
 
   listenServerEvents() {
     this.eventService.getEventData().subscribe({
-      next: (eventData: string) => {
-        const newData: IFriends = JSON.parse(JSON.parse(eventData));
-        const index = this.data.findIndex((item) => newData.id === item.id);
+      next: (eventData: Friend) => {
+        console.log('eventData', eventData);
 
-        if(index > 0) {
-          // Add columns dynamically, only if a value changes in database
-          this.displayedColumns.push('updatedName');
-          this.displayedColumns.push('updatedGender');
+        const index = this.data.findIndex(
+          (item: Friend) => eventData.id === item.id
+        );
 
-          this.data[index].updatedName = newData.name;
-          this.data[index].updatedGender = newData.gender;
-          this.cd.detectChanges();
+        if (index > 0) {
+          this.insertChanges(eventData, index);
         }
-      }
+      },
     });
   }
 
@@ -64,19 +67,29 @@ export class AppComponent implements AfterViewInit {
         startWith({}),
         switchMap(() => {
           this.isLoadingResults = true;
-          return this.friendsService!.getFriends().pipe(catchError(() => observableOf(null)));
+          return this.friendsService
+            ?.getFriends(this.paginator.pageIndex + 1, this.paginator.pageSize)
+            .pipe(catchError(() => observableOf(null)));
         }),
         map(data => {
           // Flip flag to show that loading has finished.
           this.isLoadingResults = false;
 
           if (data === null) {
-            return [];
+            return { items: [], meta: {}, pagination: {} };
           }
-
+          this.totalData = data.meta.totalItems;
           return data;
-        }),
+        })
       )
-      .subscribe(data => this.data = data);
+      .subscribe(data => (this.data = data.items));
+  }
+
+  insertChanges(eventData: Friend, index: number): void {
+    this.displayedColumns.add('updatedName');
+    this.displayedColumns.add('updatedGender');
+    this.data[index].updatedName = eventData.name;
+    this.data[index].updatedGender = eventData.gender;
+    this.cd.detectChanges();
   }
 }

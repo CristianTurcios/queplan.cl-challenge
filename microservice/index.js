@@ -31,7 +31,7 @@ app.get("/events", async (req, res) => {
       });
 
       await client.connect();
-      await client.query("LISTEN friends_update_notification");
+      await client.query(`LISTEN ${process.env.NOTIFY_EVENT}`);
 
       client.on("notification", async (data) => {
         res.write(`data: ${JSON.stringify(data.payload)}\n\n`);

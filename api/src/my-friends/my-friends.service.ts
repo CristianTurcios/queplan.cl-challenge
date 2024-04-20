@@ -25,13 +25,19 @@ export class MyFriendsService {
 
   async findAll(options: IPaginationOptions): Promise<Pagination<MyFriend>> {
     const qb = this.userRepository.createQueryBuilder('my_friends');
-    qb.orderBy('my_friends.id', 'DESC');
+    qb.orderBy('my_friends.id', 'ASC');
 
     return paginate<MyFriend>(qb, options);
   }
 
   async findOne(id: number): Promise<MyFriend> {
-    return await this.userRepository.findOne({ where: { id } });
+    const user = await this.userRepository.findOne({ where: { id } });
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    return user;
   }
 
   async update(
@@ -39,6 +45,7 @@ export class MyFriendsService {
     updateMyFriendDto: UpdateMyFriendDto,
   ): Promise<MyFriend> {
     const user = await this.userRepository.findOne({ where: { id } });
+
     if (!user) {
       throw new NotFoundException('User not found');
     }
@@ -47,6 +54,11 @@ export class MyFriendsService {
   }
 
   async remove(id: number): Promise<void> {
+    const user = await this.userRepository.findOne({ where: { id } });
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
     await this.userRepository.delete(id);
   }
 }
