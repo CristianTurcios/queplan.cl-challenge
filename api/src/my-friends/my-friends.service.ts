@@ -28,8 +28,6 @@ export class MyFriendsService {
     qb.orderBy('my_friends.id', 'DESC');
 
     return paginate<MyFriend>(qb, options);
-
-    // return await this.userRepository.find();
   }
 
   async findOne(id: number): Promise<MyFriend> {

@@ -20,6 +20,7 @@ import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('my-friends')
 @Controller('my-friends')
+@ApiTags('My-Friends')
 export class MyFriendsController {
   constructor(private readonly myFriendsService: MyFriendsService) {}
 
