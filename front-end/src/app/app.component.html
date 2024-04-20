@@ -1,5 +1,5 @@
 <div class="page-container">
-  <h1 class="friends-title">Friends</h1>
+  <h1 class="friends-title" data-testid="friends-title">Friends</h1>
 
   <div class="container mat-elevation-z8">
     <div class="loading-shade" *ngIf="isLoadingResults">
@@ -26,7 +26,6 @@
       </table>
     </div>
 
-    <!-- <mat-paginator [length]="resultsLength" [pageSize]="30"></mat-paginator> -->
     <mat-paginator
       #paginator
       [length]="totalData"

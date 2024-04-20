@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 export class FriendsService {
   constructor(private _httpClient: HttpClient) {}
 
-  getFriends(pageNumber: number, pageSize: number): Observable<ApiResponse> {
+  getFriends(pageNumber = 1, pageSize = 10): Observable<ApiResponse> {
     const url = `${environment.API_URL}/my-friends?page=${pageNumber}&limit=${pageSize}`;
     return this._httpClient.get<ApiResponse>(url);
   }

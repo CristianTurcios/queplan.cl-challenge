@@ -1,36 +1,34 @@
-import { EventService } from './services/event/event.service';
 import {
   AfterViewInit,
-  ChangeDetectorRef,
   Component,
+  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { merge, of as observableOf } from 'rxjs';
+import { SubscriptionLike, of as observableOf } from 'rxjs';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { FriendsService } from './services/friends/friends.service';
 import { Friend } from './models/friend';
 import { Columns } from './types/displayed-columns';
+import { ServerEventsService } from './services/server-events/server-events.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements AfterViewInit, OnInit {
+export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
+  totalData = 0;
+  pageSizes = [3, 5, 7, 10];
   isLoadingResults = true;
   data: Array<Friend> = [];
-  totalData = 0;
-  displayedColumns: Set<Columns> = new Set(['id', 'name', 'gender']);
-  pageSizes = [3, 5, 7];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+  private readonly eventSourceSubscription!: SubscriptionLike;
+  displayedColumns: Set<Columns> = new Set(['id', 'name', 'gender']);
 
   constructor(
-    private cd: ChangeDetectorRef,
-    private eventService: EventService,
+    private serverEventsService: ServerEventsService,
     private friendsService: FriendsService
   ) {}
 
@@ -43,26 +41,20 @@ export class AppComponent implements AfterViewInit, OnInit {
   }
 
   listenServerEvents() {
-    this.eventService.getEventData().subscribe({
-      next: (eventData: Friend) => {
-        console.log('eventData', eventData);
+    this.serverEventsService.connectToServerSentEvents().subscribe({
+      next: (data: Friend) => {
+        console.log('data', data);
+        const index = this.data.findIndex((el: Friend) => data.id === el.id);
 
-        const index = this.data.findIndex(
-          (item: Friend) => eventData.id === item.id
-        );
-
-        if (index > 0) {
-          this.insertChanges(eventData, index);
+        if (index !== -1) {
+          this.insertChanges(data, index);
         }
       },
     });
   }
 
   getFriends(): void {
-    // If the user changes the sort order, reset back to the first page.
-    this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
-
-    merge(this.sort.sortChange, this.paginator.page)
+    this.paginator.page
       .pipe(
         startWith({}),
         switchMap(() => {
@@ -90,6 +82,14 @@ export class AppComponent implements AfterViewInit, OnInit {
     this.displayedColumns.add('updatedGender');
     this.data[index].updatedName = eventData.name;
     this.data[index].updatedGender = eventData.gender;
-    this.cd.detectChanges();
+  }
+
+  showAlert(): void {
+    console.log('asdasd');
+  }
+
+  ngOnDestroy() {
+    this.eventSourceSubscription?.unsubscribe();
+    this.serverEventsService.close();
   }
 }
