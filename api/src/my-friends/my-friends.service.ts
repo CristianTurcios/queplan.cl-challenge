@@ -22,6 +22,7 @@ export class MyFriendsService {
     const user = new MyFriend();
     user.gender = createMyFriendDto.gender;
     user.name = createMyFriendDto.name;
+
     return await this.userRepository.save(user);
   }
 

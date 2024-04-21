@@ -1,12 +1,17 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
   IsEnum,
+  IsInt,
   IsNotEmpty,
   IsString,
   Matches,
   MinLength,
 } from 'class-validator';
 export class CreateMyFriendDto {
+  @ApiProperty()
+  @IsInt()
+  id: number;
+
   @ApiProperty({
     example: 'Cristian',
     required: true,

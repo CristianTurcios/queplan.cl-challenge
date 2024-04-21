@@ -2,14 +2,14 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { HttpExceptionFilter } from './common/exceptions/http-exception.filter';
-// import helmet from 'helmet';
+import helmet from 'helmet';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: ['error', 'warn'],
   });
 
-  // app.use(helmet());
+  app.use(helmet());
   app.enableCors();
 
   const config = new DocumentBuilder()
