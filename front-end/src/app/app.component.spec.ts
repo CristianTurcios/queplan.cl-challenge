@@ -16,6 +16,7 @@ import { DialogComponent } from './components/dialog/dialog.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FilterComponent } from './components/filter/filter.component';
+import { TableComponent } from './components/table/table.component';
 
 class MatSnackBarStub {
   open() {
@@ -51,6 +52,7 @@ describe('AppComponent', () => {
         MatFormFieldModule,
         MatInputModule,
         FilterComponent,
+        TableComponent,
       ],
       providers: [
         { provide: MatSnackBar, useClass: MatSnackBarStub },
