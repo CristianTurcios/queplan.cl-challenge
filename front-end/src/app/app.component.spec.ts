@@ -13,6 +13,9 @@ import { of, throwError } from 'rxjs';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { DialogComponent } from './components/dialog/dialog.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { FilterComponent } from './components/filter/filter.component';
 
 class MatSnackBarStub {
   open() {
@@ -45,6 +48,9 @@ describe('AppComponent', () => {
         MatDialogModule,
         MatSnackBarModule,
         NoopAnimationsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        FilterComponent,
       ],
       providers: [
         { provide: MatSnackBar, useClass: MatSnackBarStub },
@@ -135,31 +141,42 @@ describe('AppComponent', () => {
   });
 
   describe('getFriends', () => {
-    it('should call getFriends to retrieve api values', () => {
+    beforeEach(() => {
       friendsService.getFriends.and.returnValue(
         of({
           data: [{ id: 1, name: 'Javier', gender: 'male' }],
           meta: {
-            totalItems: 12,
+            totalItems: 1,
             itemCount: 10,
             itemsPerPage: 10,
-            totalPages: 2,
+            totalPages: 1,
             currentPage: 1,
+            sortBy: [['id', 'ASC']],
           },
           links: {
-            first: '/my-friends?limit=10',
-            previous: '',
-            next: '/my-friends?page=2&limit=10',
-            last: '/my-friends?page=2&limit=10',
+            current: '/my-friends?limit=10',
+            next: '/my-friends?page=1&limit=10',
+            last: '/my-friends?page=1&limit=10',
           },
         })
       );
+    });
 
+    it('should call getFriends to retrieve api values with default pagination values', () => {
       component.data = [];
       fixture.detectChanges();
 
       component.getFriends();
-      expect(friendsService.getFriends).toHaveBeenCalled();
+      expect(friendsService.getFriends).toHaveBeenCalledWith(1, 10, '');
+      expect(component.data[0].name).toEqual('Javier');
+    });
+
+    it('should call getFriends with search param', () => {
+      component.data = [];
+      fixture.detectChanges();
+
+      component.getFriends('Javier');
+      expect(friendsService.getFriends).toHaveBeenCalledWith(1, 10, 'Javier');
       expect(component.data[0].name).toEqual('Javier');
     });
 
@@ -174,6 +191,15 @@ describe('AppComponent', () => {
       component.getFriends();
       expect(friendsService.getFriends).toHaveBeenCalled();
       expect(component.data).toEqual([]);
+    });
+  });
+
+  describe('filterData', () => {
+    it('should call getFriends with search param', () => {
+      component.data = [{ id: 1, name: 'name', gender: 'female' }];
+      spyOn(component, 'getFriends');
+      component.filterData('Cristian');
+      expect(component.getFriends).toHaveBeenCalledWith('Cristian');
     });
   });
 

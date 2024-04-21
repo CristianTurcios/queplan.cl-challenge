@@ -24,10 +24,10 @@ import { ServerEventsService } from './services/server-events/server-events.serv
 })
 export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
   totalData = 0;
-  pageSizes = [3, 5, 7, 10];
+  pageSizes = [5, 10, 15];
+  defaultPageSize = 10;
   isLoadingResults = true;
   data: Array<Friend> = [];
-  private readonly snackBarDuration = 5000;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   private readonly eventSourceSubscription!: SubscriptionLike;
   displayedColumns: Set<Columns> = new Set(['id', 'name', 'gender']);
@@ -61,19 +61,23 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
         }
       },
       error: () => {
-        this.showSnackBar('Error connecting with server');
+        this.showSnackBar('Error connecting with server side events');
       },
     });
   }
 
-  getFriends(): void {
+  getFriends(_searchParam = ''): void {
     this.paginator.page
       .pipe(
         startWith({}),
         switchMap(() => {
           this.isLoadingResults = true;
           return this.friendsService
-            ?.getFriends(this.paginator.pageIndex + 1, this.paginator.pageSize)
+            ?.getFriends(
+              this.paginator.pageIndex + 1,
+              this.paginator.pageSize,
+              _searchParam
+            )
             .pipe(catchError(() => observableOf(null)));
         }),
         map(data => {
@@ -90,6 +94,10 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
       .subscribe(res => (this.data = res.data));
   }
 
+  filterData(value: string): void {
+    this.getFriends(value);
+  }
+
   updateData(eventData: Friend, index: number): void {
     this.displayedColumns.add('updatedName');
     this.displayedColumns.add('updatedGender');
@@ -104,7 +112,7 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   showSnackBar(message: string) {
-    this.snackBar.open(message, 'Undo', { duration: this.snackBarDuration });
+    this.snackBar.open(message, 'Undo');
   }
 
   ngOnDestroy() {

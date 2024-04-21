@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { FilterComponent } from './components/filter/filter.component';
 
 @NgModule({
   declarations: [AppComponent, DialogComponent],
@@ -23,6 +24,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatDialogModule,
     BrowserAnimationsModule,
     MatSnackBarModule,
+    FilterComponent,
   ],
   providers: [],
   bootstrap: [AppComponent],

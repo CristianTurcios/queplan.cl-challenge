@@ -41,4 +41,15 @@ describe('FriendsService', () => {
     service.getFriends(page, limit);
     expect(httpClient.get).toHaveBeenCalledWith(url);
   });
+
+  it('should make GET request with search params', () => {
+    const page = 2;
+    const limit = 5;
+    const search = 'Cristian';
+
+    const url = `${environment.API_URL}/my-friends?page=${page}&limit=${limit}&search=${search}`;
+    spyOn(httpClient, 'get').and.returnValue(of());
+    service.getFriends(page, limit, search);
+    expect(httpClient.get).toHaveBeenCalledWith(url);
+  });
 });
