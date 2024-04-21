@@ -53,7 +53,7 @@ export class MyFriendsController {
     return this.myFriendsService.findAll();
   }
 
-  @Get('/pagination')
+  @Get()
   paginated(@Paginate() query: PaginateQuery): Promise<Paginated<MyFriend>> {
     return this.myFriendsService.paginated(query);
   }

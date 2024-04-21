@@ -10,6 +10,17 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { testUtils } from 'src/utils/test-utils';
 import { By } from '@angular/platform-browser';
 import { of, throwError } from 'rxjs';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { DialogComponent } from './components/dialog/dialog.component';
+
+class MatSnackBarStub {
+  open() {
+    return {
+      onAction: () => of({}),
+    };
+  }
+}
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -25,15 +36,18 @@ describe('AppComponent', () => {
     ]);
 
     TestBed.configureTestingModule({
-      declarations: [AppComponent],
+      declarations: [AppComponent, DialogComponent],
       imports: [
         MatTableModule,
         MatProgressSpinnerModule,
         MatSortModule,
         MatPaginatorModule,
+        MatDialogModule,
+        MatSnackBarModule,
         NoopAnimationsModule,
       ],
       providers: [
+        { provide: MatSnackBar, useClass: MatSnackBarStub },
         { provide: FriendsService, useValue: friendsService },
         { provide: ServerEventsService, useValue: serverEventsService },
       ],
@@ -73,15 +87,20 @@ describe('AppComponent', () => {
   });
 
   describe('listenServerEvents', () => {
+    beforeEach(() => {
+      spyOn(component, 'showDialog');
+      spyOn(component, 'showSnackBar');
+    });
+
     it('should call serverEventsService.connectToServerSentEvents', () => {
-      spyOn(component, 'insertChanges');
+      spyOn(component, 'updateData');
       component.listenServerEvents();
       expect(
         serverEventsService.connectToServerSentEvents
       ).toHaveBeenCalledTimes(1);
     });
 
-    it('should call insertChanges if index is in data', () => {
+    it('should call updateData if index is in data', () => {
       component.data = [
         {
           id: 1,
@@ -89,19 +108,27 @@ describe('AppComponent', () => {
           gender: 'male',
         },
       ];
-      spyOn(component, 'insertChanges');
+      spyOn(component, 'updateData');
       component.listenServerEvents();
       expect(serverEventsService.connectToServerSentEvents).toHaveBeenCalled();
-      expect(component.insertChanges).toHaveBeenCalledTimes(1);
+      expect(component.updateData).toHaveBeenCalledTimes(1);
+    });
+
+    it('should call showSnackBar() if sse has an error', () => {
+      serverEventsService.connectToServerSentEvents.and.returnValue(
+        throwError(() => new Error('error'))
+      );
+      component.listenServerEvents();
+      expect(component.showSnackBar).toHaveBeenCalled();
     });
   });
 
-  describe('insertChanges', () => {
+  describe('updateData', () => {
     it('should modify friend data', () => {
       const originalData = { id: 1, name: 'Cristian', gender: 'male' };
       component.data = [originalData];
       const eventData = { id: 1, name: 'Javier', gender: 'female' };
-      component.insertChanges(eventData, 0);
+      component.updateData(eventData, 0);
       expect(component.data[0].updatedName).toEqual('Javier');
       expect(component.data[0].updatedGender).toEqual('female');
     });
@@ -111,7 +138,7 @@ describe('AppComponent', () => {
     it('should call getFriends to retrieve api values', () => {
       friendsService.getFriends.and.returnValue(
         of({
-          items: [{ id: 1, name: 'Javier', gender: 'male' }],
+          data: [{ id: 1, name: 'Javier', gender: 'male' }],
           meta: {
             totalItems: 12,
             itemCount: 10,
@@ -147,6 +174,14 @@ describe('AppComponent', () => {
       component.getFriends();
       expect(friendsService.getFriends).toHaveBeenCalled();
       expect(component.data).toEqual([]);
+    });
+  });
+
+  describe('showSnackBar', () => {
+    it('should call snackBar.open()', () => {
+      spyOn(component.snackBar, 'open').and.callThrough();
+      component.showSnackBar('message');
+      expect(component.snackBar.open).toHaveBeenCalled();
     });
   });
 

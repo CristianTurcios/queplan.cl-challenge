@@ -6,12 +6,15 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { SubscriptionLike, of as observableOf } from 'rxjs';
-import { catchError, map, startWith, switchMap } from 'rxjs/operators';
-import { FriendsService } from './services/friends/friends.service';
 import { Friend } from './models/friend';
 import { Columns } from './types/displayed-columns';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatPaginator } from '@angular/material/paginator';
+import { SubscriptionLike, of as observableOf } from 'rxjs';
+import { FriendsService } from './services/friends/friends.service';
+import { DialogComponent } from './components/dialog/dialog.component';
+import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { ServerEventsService } from './services/server-events/server-events.service';
 
 @Component({
@@ -24,11 +27,14 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
   pageSizes = [3, 5, 7, 10];
   isLoadingResults = true;
   data: Array<Friend> = [];
+  private readonly snackBarDuration = 5000;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   private readonly eventSourceSubscription!: SubscriptionLike;
   displayedColumns: Set<Columns> = new Set(['id', 'name', 'gender']);
 
   constructor(
+    public dialog: MatDialog,
+    public snackBar: MatSnackBar,
     private cdr: ChangeDetectorRef,
     private serverEventsService: ServerEventsService,
     private friendsService: FriendsService
@@ -46,12 +52,16 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
   listenServerEvents() {
     this.serverEventsService.connectToServerSentEvents().subscribe({
       next: (data: Friend) => {
-        console.log('data', data);
         const index = this.data.findIndex((el: Friend) => data.id === el.id);
 
         if (index !== -1) {
-          this.insertChanges(data, index);
+          this.updateData(data, index);
+        } else {
+          this.showDialog(data);
         }
+      },
+      error: () => {
+        this.showSnackBar('Error connecting with server');
       },
     });
   }
@@ -71,20 +81,30 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
           this.isLoadingResults = false;
 
           if (data === null) {
-            return { items: [], meta: {}, pagination: {} };
+            return { data: [], meta: {}, pagination: {} };
           }
           this.totalData = data.meta.totalItems;
           return data;
         })
       )
-      .subscribe(data => (this.data = data.items));
+      .subscribe(res => (this.data = res.data));
   }
 
-  insertChanges(eventData: Friend, index: number): void {
+  updateData(eventData: Friend, index: number): void {
     this.displayedColumns.add('updatedName');
     this.displayedColumns.add('updatedGender');
     this.data[index].updatedName = eventData.name;
     this.data[index].updatedGender = eventData.gender;
+  }
+
+  showDialog(data: Friend): void {
+    this.dialog.open(DialogComponent, {
+      data,
+    });
+  }
+
+  showSnackBar(message: string) {
+    this.snackBar.open(message, 'Undo', { duration: this.snackBarDuration });
   }
 
   ngOnDestroy() {
