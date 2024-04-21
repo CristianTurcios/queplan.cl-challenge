@@ -39,12 +39,12 @@ export class MyFriendsService {
       // Only known values can be added here :)
       sortableColumns: ['id', 'name', 'gender'],
       nullSort: 'last',
-      defaultSortBy: [['id', 'DESC']],
+      defaultSortBy: [['id', 'ASC']],
       searchableColumns: ['name', 'gender'],
       select: ['id', 'name', 'gender'],
       filterableColumns: {
         name: [FilterOperator.EQ, FilterSuffix.NOT],
-        age: true,
+        gender: [FilterOperator.EQ, FilterSuffix.NOT],
       },
     });
   }
