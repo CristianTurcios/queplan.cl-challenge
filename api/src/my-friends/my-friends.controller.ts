@@ -6,19 +6,14 @@ import {
   Patch,
   Param,
   Delete,
-  // Query,
-  // DefaultValuePipe,
   ParseIntPipe,
-  HttpException,
-  HttpStatus,
 } from '@nestjs/common';
 import { MyFriendsService } from './my-friends.service';
 import { CreateMyFriendDto } from './dto/create-my-friend.dto';
 import { UpdateMyFriendDto } from './dto/update-my-friend.dto';
-// import { ApiPaginatedResponse } from 'src/common/decorator/api-pagination.response';
 import { MyFriend } from './entities/my-friend.entity';
-// import { IPaginationOptions, Pagination } from 'nestjs-typeorm-paginate';
 import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Paginate, PaginateQuery, Paginated } from 'nestjs-paginate';
 
 @ApiTags('my-friends')
 @Controller('my-friends')
@@ -36,14 +31,7 @@ export class MyFriendsController {
     description: 'Json structure for friend object',
   })
   async create(@Body() createMyFriendDto: CreateMyFriendDto) {
-    return await this.myFriendsService
-      .create(createMyFriendDto)
-      .catch((err) => {
-        throw new HttpException(
-          { message: err.message },
-          HttpStatus.BAD_REQUEST,
-        );
-      });
+    return await this.myFriendsService.create(createMyFriendDto);
   }
 
   // @Get()
@@ -60,9 +48,14 @@ export class MyFriendsController {
   //   return this.myFriendsService.findAll(options);
   // }
 
-  @Get()
+  @Get('/all')
   findAll(): Promise<MyFriend[]> {
     return this.myFriendsService.findAll();
+  }
+
+  @Get('/pagination')
+  paginated(@Paginate() query: PaginateQuery): Promise<Paginated<MyFriend>> {
+    return this.myFriendsService.paginated(query);
   }
 
   @Get(':id')

@@ -5,7 +5,7 @@ import { MyFriend } from './entities/my-friend.entity';
 import { CreateMyFriendDto } from './dto/create-my-friend.dto';
 import { NotFoundException } from '@nestjs/common';
 
-fdescribe('MyFriendsService', () => {
+describe('MyFriendsService', () => {
   let service: MyFriendsService;
 
   const mockMyFriendRepository = {

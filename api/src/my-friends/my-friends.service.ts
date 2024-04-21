@@ -4,11 +4,13 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MyFriend } from './entities/my-friend.entity';
 import { Repository } from 'typeorm';
-// import {
-//   IPaginationOptions,
-//   paginate,
-//   Pagination,
-// } from 'nestjs-typeorm-paginate';
+import {
+  FilterOperator,
+  FilterSuffix,
+  PaginateQuery,
+  Paginated,
+  paginate,
+} from 'nestjs-paginate';
 
 @Injectable()
 export class MyFriendsService {
@@ -23,13 +25,6 @@ export class MyFriendsService {
     return await this.userRepository.save(user);
   }
 
-  // async findAll(options: IPaginationOptions): Promise<Pagination<MyFriend>> {
-  //   const qb = this.userRepository.createQueryBuilder('my_friends');
-  //   qb.orderBy('my_friends.id', 'ASC');
-
-  //   return paginate<MyFriend>(qb, options);
-  // }
-
   async findAll(): Promise<MyFriend[]> {
     const qb = this.userRepository
       .createQueryBuilder('my_friends')
@@ -37,6 +32,21 @@ export class MyFriendsService {
       .getMany();
 
     return qb;
+  }
+
+  async paginated(query: PaginateQuery): Promise<Paginated<MyFriend>> {
+    return paginate(query, this.userRepository, {
+      // Only known values can be added here :)
+      sortableColumns: ['id', 'name', 'gender'],
+      nullSort: 'last',
+      defaultSortBy: [['id', 'DESC']],
+      searchableColumns: ['name', 'gender'],
+      select: ['id', 'name', 'gender'],
+      filterableColumns: {
+        name: [FilterOperator.EQ, FilterSuffix.NOT],
+        age: true,
+      },
+    });
   }
 
   async findOne(id: number): Promise<MyFriend> {

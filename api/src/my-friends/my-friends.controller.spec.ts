@@ -1,140 +1,118 @@
-// import { Test, TestingModule } from '@nestjs/testing';
-// import { MyFriendsController } from './my-friends.controller';
-// import { MyFriendsService } from './my-friends.service';
-// import { CreateMyFriendDto } from './dto/create-my-friend.dto';
-// import { MyFriend } from './entities/my-friend.entity';
-// import { UpdateMyFriendDto } from './dto/update-my-friend.dto';
+import { Test, TestingModule } from '@nestjs/testing';
+import { MyFriendsController } from './my-friends.controller';
+import { MyFriendsService } from './my-friends.service';
+import { CreateMyFriendDto } from './dto/create-my-friend.dto';
+import { MyFriend } from './entities/my-friend.entity';
+import { UpdateMyFriendDto } from './dto/update-my-friend.dto';
 
-// describe('MyFriendsController', () => {
-//   let controller: MyFriendsController;
+describe('MyFriendsController', () => {
+  let controller: MyFriendsController;
 
-//   const mockMyFriendsService = {
-//     create: jest.fn(),
-//     findAll: jest.fn(),
-//     findOne: jest.fn(),
-//     update: jest.fn(),
-//     remove: jest.fn(),
-//   };
+  const mockMyFriendsService = {
+    create: jest.fn(),
+    findAll: jest.fn(),
+    findOne: jest.fn(),
+    update: jest.fn(),
+    remove: jest.fn(),
+  };
 
-//   beforeEach(async () => {
-//     const module: TestingModule = await Test.createTestingModule({
-//       controllers: [MyFriendsController],
-//       providers: [
-//         {
-//           provide: MyFriendsService,
-//           useValue: mockMyFriendsService,
-//         },
-//       ],
-//     }).compile();
+  const myFriend = {
+    id: 1,
+    name: 'Cristian',
+    gender: 'female',
+  } as MyFriend;
 
-//     controller = module.get<MyFriendsController>(MyFriendsController);
-//   });
+  beforeEach(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      controllers: [MyFriendsController],
+      providers: [
+        {
+          provide: MyFriendsService,
+          useValue: mockMyFriendsService,
+        },
+      ],
+    }).compile();
 
-//   it('should be defined', () => {
-//     expect(controller).toBeDefined();
-//   });
+    controller = module.get<MyFriendsController>(MyFriendsController);
+  });
 
-//   //   it('create => should create a new user by a given data', async () => {
-//   //     // arrange
-//   //     const createMyFriendDto = {
-//   //       name: 'Cristian',
-//   //       gender: 'male',
-//   //     } as CreateMyFriendDto;
+  it('should be defined', () => {
+    expect(controller).toBeDefined();
+  });
 
-//   //     const myFriend = {
-//   //       id: 1,
-//   //       name: 'Cristian',
-//   //       gender: 'female',
-//   //     } as MyFriend;
+  it('create => should create a new user by a given data', async () => {
+    // arrange
+    const createMyFriendDto = {
+      name: 'Cristian',
+      gender: 'male',
+    } as CreateMyFriendDto;
 
-//   //     jest.spyOn(mockMyFriendsService, 'create').mockReturnValue(myFriend);
+    jest.spyOn(mockMyFriendsService, 'create').mockReturnValue(myFriend);
 
-//   //     // act
-//   //     const result = await controller.create(createMyFriendDto);
+    // act
+    const result = await controller.create(createMyFriendDto);
 
-//   //     // assert
-//   //     expect(mockMyFriendsService.create).toHaveBeenCalledWith(createMyFriendDto);
+    // assert
+    expect(mockMyFriendsService.create).toHaveBeenCalledWith(createMyFriendDto);
 
-//   //     expect(result).toEqual(myFriend);
-//   //   });
+    expect(result).toEqual(myFriend);
+  });
 
-//   //   it('findAll => should return an array of myFriends', async () => {
-//   //     //arrange
-//   //     const myFriend = {
-//   //       id: 1,
-//   //       name: 'Cristian',
-//   //       gender: 'male',
-//   //     };
-//   //     const myFriends = [myFriend];
-//   //     jest.spyOn(mockMyFriendsService, 'findAll').mockReturnValue(myFriends);
+  it('findAll => should return an array of myFriends', async () => {
+    //arrange
+    const myFriends = [myFriend];
+    jest.spyOn(mockMyFriendsService, 'findAll').mockReturnValue(myFriends);
 
-//   //     //act
-//   //     const result = await controller.findAll();
+    //act
+    const result = await controller.findAll();
 
-//   //     // assert
-//   //     expect(result).toEqual(myFriends);
-//   //     expect(mockMyFriendsService.findAll).toHaveBeenCalled();
-//   //   });
+    // assert
+    expect(result).toEqual(myFriends);
+    expect(mockMyFriendsService.findAll).toHaveBeenCalled();
+  });
 
-//   //   it('findOne => should find a myFriend by a given id and return its data', async () => {
-//   //     //arrange
-//   //     const id = 1;
-//   //     const myFriend = {
-//   //       id: 1,
-//   //       name: 'Cristian',
-//   //       gender: 'male',
-//   //     };
+  it('findOne => should find a myFriend by a given id and return its data', async () => {
+    //arrange
+    const id = 1;
 
-//   //     jest.spyOn(mockMyFriendsService, 'findOne').mockReturnValue(myFriend);
+    jest.spyOn(mockMyFriendsService, 'findOne').mockReturnValue(myFriend);
 
-//   //     //act
-//   //     const result = await controller.findOne(id);
+    //act
+    const result = await controller.findOne(id);
 
-//   //     expect(result).toEqual(myFriend);
-//   //     expect(mockMyFriendsService.findOne).toHaveBeenCalledWith(id);
-//   //   });
+    expect(result).toEqual(myFriend);
+    expect(mockMyFriendsService.findOne).toHaveBeenCalledWith(id);
+  });
 
-//   //   it('update => should find a myFriend by a given id and update its data', async () => {
-//   //     //arrange
-//   //     const id = 1;
-//   //     const updateMyFriendDto = {
-//   //       name: 'Cristian',
-//   //       gender: 'male',
-//   //     } as UpdateMyFriendDto;
+  it('update => should find a myFriend by a given id and update its data', async () => {
+    //arrange
+    const id = 1;
+    const updateMyFriendDto = {
+      name: 'Cristian',
+      gender: 'male',
+    } as UpdateMyFriendDto;
 
-//   //     const user = {
-//   //       id: 1,
-//   //       name: 'Cristian',
-//   //       gender: 'male',
-//   //     };
+    jest.spyOn(mockMyFriendsService, 'update').mockReturnValue(myFriend);
 
-//   //     jest.spyOn(mockMyFriendsService, 'update').mockReturnValue(user);
+    //act
+    const result = await controller.update(id, updateMyFriendDto);
 
-//   //     //act
-//   //     const result = await controller.update(id, updateMyFriendDto);
+    expect(result).toEqual(myFriend);
+    expect(mockMyFriendsService.update).toHaveBeenCalledWith(
+      id,
+      updateMyFriendDto,
+    );
+  });
 
-//   //     expect(result).toEqual(user);
-//   //     expect(mockMyFriendsService.update).toHaveBeenCalledWith(
-//   //       id,
-//   //       updateMyFriendDto,
-//   //     );
-//   //   });
+  it('remove => should find a myFriend by a given id and remove', async () => {
+    const id = 1;
 
-//   //   it('remove => should find a myFriend by a given id and remove', async () => {
-//   //     const id = 1;
+    jest.spyOn(mockMyFriendsService, 'remove').mockReturnValue(myFriend);
 
-//   //     const myFriend = {
-//   //       id: 1,
-//   //       name: 'Cristian',
-//   //       gender: 'male',
-//   //     };
+    //act
+    const result = await controller.remove(id);
 
-//   //     jest.spyOn(mockMyFriendsService, 'remove').mockReturnValue(myFriend);
-
-//   //     //act
-//   //     const result = await controller.remove(id);
-
-//   //     expect(result).toEqual(myFriend);
-//   //     expect(mockMyFriendsService.remove).toHaveBeenCalledWith(id);
-//   //   });
-// });
+    expect(result).toEqual(myFriend);
+    expect(mockMyFriendsService.remove).toHaveBeenCalledWith(id);
+  });
+});
