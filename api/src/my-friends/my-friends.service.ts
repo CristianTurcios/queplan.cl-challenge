@@ -4,11 +4,11 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MyFriend } from './entities/my-friend.entity';
 import { Repository } from 'typeorm';
-import {
-  IPaginationOptions,
-  paginate,
-  Pagination,
-} from 'nestjs-typeorm-paginate';
+// import {
+//   IPaginationOptions,
+//   paginate,
+//   Pagination,
+// } from 'nestjs-typeorm-paginate';
 
 @Injectable()
 export class MyFriendsService {
@@ -23,11 +23,20 @@ export class MyFriendsService {
     return await this.userRepository.save(user);
   }
 
-  async findAll(options: IPaginationOptions): Promise<Pagination<MyFriend>> {
-    const qb = this.userRepository.createQueryBuilder('my_friends');
-    qb.orderBy('my_friends.id', 'ASC');
+  // async findAll(options: IPaginationOptions): Promise<Pagination<MyFriend>> {
+  //   const qb = this.userRepository.createQueryBuilder('my_friends');
+  //   qb.orderBy('my_friends.id', 'ASC');
 
-    return paginate<MyFriend>(qb, options);
+  //   return paginate<MyFriend>(qb, options);
+  // }
+
+  async findAll(): Promise<MyFriend[]> {
+    const qb = this.userRepository
+      .createQueryBuilder('my_friends')
+      .orderBy('my_friends.id', 'ASC')
+      .getMany();
+
+    return qb;
   }
 
   async findOne(id: number): Promise<MyFriend> {
@@ -50,15 +59,16 @@ export class MyFriendsService {
       throw new NotFoundException('User not found');
     }
     await this.userRepository.update({ id }, updateMyFriendDto);
-    return user;
+    return { ...user, ...updateMyFriendDto };
   }
 
-  async remove(id: number): Promise<void> {
+  async remove(id: number): Promise<MyFriend> {
     const user = await this.userRepository.findOne({ where: { id } });
 
     if (!user) {
       throw new NotFoundException('User not found');
     }
     await this.userRepository.delete(id);
+    return user;
   }
 }

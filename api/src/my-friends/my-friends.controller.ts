@@ -6,8 +6,8 @@ import {
   Patch,
   Param,
   Delete,
-  Query,
-  DefaultValuePipe,
+  // Query,
+  // DefaultValuePipe,
   ParseIntPipe,
   HttpException,
   HttpStatus,
@@ -15,9 +15,9 @@ import {
 import { MyFriendsService } from './my-friends.service';
 import { CreateMyFriendDto } from './dto/create-my-friend.dto';
 import { UpdateMyFriendDto } from './dto/update-my-friend.dto';
-import { ApiPaginatedResponse } from 'src/common/decorator/api-pagination.response';
+// import { ApiPaginatedResponse } from 'src/common/decorator/api-pagination.response';
 import { MyFriend } from './entities/my-friend.entity';
-import { IPaginationOptions, Pagination } from 'nestjs-typeorm-paginate';
+// import { IPaginationOptions, Pagination } from 'nestjs-typeorm-paginate';
 import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('my-friends')
@@ -46,18 +46,23 @@ export class MyFriendsController {
       });
   }
 
+  // @Get()
+  // @ApiPaginatedResponse({ model: MyFriend, description: 'List of friends' })
+  // findAll(
+  //   @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number = 1,
+  //   @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number = 1,
+  // ): Promise<Pagination<MyFriend>> {
+  //   const options: IPaginationOptions = {
+  //     limit,
+  //     page,
+  //     route: '/my-friends',
+  //   };
+  //   return this.myFriendsService.findAll(options);
+  // }
+
   @Get()
-  @ApiPaginatedResponse({ model: MyFriend, description: 'List of friends' })
-  findAll(
-    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number = 1,
-    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number = 1,
-  ): Promise<Pagination<MyFriend>> {
-    const options: IPaginationOptions = {
-      limit,
-      page,
-      route: '/my-friends',
-    };
-    return this.myFriendsService.findAll(options);
+  findAll(): Promise<MyFriend[]> {
+    return this.myFriendsService.findAll();
   }
 
   @Get(':id')
