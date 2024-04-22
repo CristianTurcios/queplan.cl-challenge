@@ -1,6 +1,5 @@
 <div class="page-container">
-  <app-header></app-header>
-  <app-filter (filterData)="filterData($event)"></app-filter>
+  <app-header title="Friends"></app-header>
   <div class="container mat-elevation-z8">
     <app-spinner *ngIf="isLoadingResults"></app-spinner>
     <app-table [data]="data" [displayedColumns]="displayedColumns"></app-table>
