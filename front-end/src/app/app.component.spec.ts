@@ -12,6 +12,9 @@ import { FilterComponent } from './components/filter/filter.component';
 import { TableComponent } from './components/table/table.component';
 import { HeaderComponent } from './components/header/header.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
+import { MatDialogHarness } from '@angular/material/dialog/testing';
+import { HarnessLoader } from '@angular/cdk/testing';
 
 class MatSnackBarStub {
   open() {
@@ -26,6 +29,7 @@ describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
   let friendsService: jasmine.SpyObj<FriendsService>;
   let serverEventsService: jasmine.SpyObj<ServerEventsService>;
+  let loader: HarnessLoader;
 
   beforeEach(waitForAsync(() => {
     friendsService = jasmine.createSpyObj('FriendsService', ['getFriends']);
@@ -62,6 +66,7 @@ describe('AppComponent', () => {
         gender: 'male',
       })
     );
+    loader = TestbedHarnessEnvironment.documentRootLoader(fixture);
   }));
 
   it('should create the app', () => {
@@ -202,6 +207,53 @@ describe('AppComponent', () => {
       spyOn(component.snackBar, 'open').and.callThrough();
       component.showSnackBar('message');
       expect(component.snackBar.open).toHaveBeenCalled();
+    });
+  });
+
+  describe('View Test', () => {
+    it('should display spinner ', () => {
+      component.isLoadingResults = true;
+      fixture.detectChanges();
+      expect(
+        fixture.debugElement.nativeElement.querySelector('mat-spinner')
+      ).toBeTruthy();
+    });
+
+    describe('showDialog', () => {
+      beforeEach(() => {
+        const originalData = { id: 1, name: 'Cristian', gender: 'male' };
+        component.data = [originalData];
+
+        friendsService.getFriends.and.returnValue(
+          of({
+            data: [originalData],
+            meta: {
+              totalItems: 1,
+              itemCount: 10,
+              itemsPerPage: 10,
+              totalPages: 1,
+              currentPage: 1,
+              sortBy: [['id', 'ASC']],
+            },
+            links: {
+              current: '/my-friends?limit=10',
+              next: '/my-friends?page=1&limit=10',
+              last: '/my-friends?page=1&limit=10',
+            },
+          })
+        );
+      });
+
+      it('should load harness for dialog', async () => {
+        fixture.componentInstance.showDialog({
+          id: 1,
+          name: 'name',
+          gender: 'male',
+        });
+
+        const dialogs = await loader.getAllHarnesses(MatDialogHarness);
+        expect(dialogs.length).toBe(1);
+      });
     });
   });
 });

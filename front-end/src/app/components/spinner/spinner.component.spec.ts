@@ -18,4 +18,12 @@ describe('SpinnerComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('View Test', () => {
+    it('should display spinner ', () => {
+      expect(
+        fixture.debugElement.nativeElement.querySelector('mat-spinner')
+      ).toBeTruthy();
+    });
+  });
 });

@@ -59,27 +59,6 @@ export class MyFriendsController {
     }
   }
 
-  @Get('/all')
-  @ApiOperation({
-    summary: 'Get plain friends without pagination metadata',
-  })
-  @ApiOkResponse({
-    description: 'Friends Records',
-    type: CreateMyFriendDto,
-    isArray: true,
-  })
-  @ApiResponse({ status: 400, description: 'Bad Request.' })
-  @ApiResponse({ status: 500, description: 'Internal Server Error.' })
-  findAll(): Promise<MyFriend[]> {
-    try {
-      return this.myFriendsService.findAll();
-    } catch (error) {
-      throw new InternalServerErrorException('Something Went Wrong.', {
-        cause: new Error(),
-      });
-    }
-  }
-
   @Get()
   @ApiOperation({
     summary: 'Get friends with additional metadata for pagination',
@@ -97,6 +76,27 @@ export class MyFriendsController {
   paginated(@Paginate() query: PaginateQuery): Promise<Paginated<MyFriend>> {
     try {
       return this.myFriendsService.paginated(query);
+    } catch (error) {
+      throw new InternalServerErrorException('Something Went Wrong.', {
+        cause: new Error(),
+      });
+    }
+  }
+
+  @Get('/all')
+  @ApiOperation({
+    summary: 'Get plain friends without pagination metadata',
+  })
+  @ApiOkResponse({
+    description: 'Friends Records',
+    type: CreateMyFriendDto,
+    isArray: true,
+  })
+  @ApiResponse({ status: 400, description: 'Bad Request.' })
+  @ApiResponse({ status: 500, description: 'Internal Server Error.' })
+  findAll(): Promise<MyFriend[]> {
+    try {
+      return this.myFriendsService.findAll();
     } catch (error) {
       throw new InternalServerErrorException('Something Went Wrong.', {
         cause: new Error(),

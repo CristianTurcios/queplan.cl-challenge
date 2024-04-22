@@ -37,7 +37,7 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
     public snackBar: MatSnackBar,
     private cdr: ChangeDetectorRef,
     private friendsService: FriendsService,
-    private serverEventsService: ServerEventsService,
+    private serverEventsService: ServerEventsService
   ) {}
 
   ngOnInit(): void {
