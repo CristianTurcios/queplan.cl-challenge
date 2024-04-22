@@ -1,10 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { MatTableModule } from '@angular/material/table';
 import { AppComponent } from './app.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatSortModule } from '@angular/material/sort';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DialogComponent } from './components/dialog/dialog.component';
@@ -12,14 +9,13 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FilterComponent } from './components/filter/filter.component';
 import { TableComponent } from './components/table/table.component';
+import { HeaderComponent } from './components/header/header.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @NgModule({
   declarations: [AppComponent, DialogComponent],
   imports: [
     BrowserModule,
-    MatTableModule,
-    MatProgressSpinnerModule,
-    MatSortModule,
     MatPaginatorModule,
     HttpClientModule,
     MatDialogModule,
@@ -27,6 +23,8 @@ import { TableComponent } from './components/table/table.component';
     MatSnackBarModule,
     FilterComponent,
     TableComponent,
+    HeaderComponent,
+    SpinnerComponent,
   ],
   providers: [],
   bootstrap: [AppComponent],

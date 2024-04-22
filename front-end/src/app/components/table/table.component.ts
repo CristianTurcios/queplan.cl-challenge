@@ -13,5 +13,5 @@ import { Columns } from 'src/app/types/displayed-columns';
 })
 export class TableComponent {
   @Input() data: Array<Friend> = [];
-  displayedColumns: Set<Columns> = new Set(['id', 'name', 'gender']);
+  @Input() displayedColumns!: Set<Columns>;
 }

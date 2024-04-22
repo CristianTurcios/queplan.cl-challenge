@@ -1,11 +1,5 @@
 <div class="table-container">
-  <table
-    mat-table
-    matSort
-    matSortActive="created"
-    matSortDisableClear
-    matSortDirection="desc"
-    [dataSource]="data">
+  <table mat-table [dataSource]="data">
     <ng-container
       [matColumnDef]="column"
       *ngFor="let column of displayedColumns">

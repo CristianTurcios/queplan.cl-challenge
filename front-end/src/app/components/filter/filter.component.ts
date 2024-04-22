@@ -32,6 +32,7 @@ export class FilterComponent implements AfterViewInit {
   ngAfterViewInit() {
     fromEvent(this.input.nativeElement, 'keyup')
       .pipe(
+        // unable to find correct type for this, should be KeyboardEvent :/
         map((event: any) => event.target.value.trim().toLocaleLowerCase()),
         filter(Boolean),
         debounceTime(500),

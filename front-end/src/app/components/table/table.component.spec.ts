@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { TableComponent } from './table.component';
 import { MatTableModule } from '@angular/material/table';
 

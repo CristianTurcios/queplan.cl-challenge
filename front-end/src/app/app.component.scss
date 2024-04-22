@@ -1,47 +1,6 @@
-
-// .mat-mdc-form-field {
-//   font-size: 14px;
-//   width: -webkit-fill-available;
-//   margin: 0 40px;
-// }
-
 .page-container {
-  .friends-title {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 2.25rem;
-    margin: 30px;
-    padding: 30px;
-  }
-
-  /* Table */
   .container {
     position: relative;
     margin: 0 40px;
-
-    .loading-shade {
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 56px;
-      right: 0;
-      background: rgba(0, 0, 0, 0.15);
-      z-index: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .table-container {
-      position: relative;
-      min-height: 200px;
-      max-height: 600px;
-      overflow: auto;
-
-      table {
-        width: 100%;
-      }
-    }
   }
 }

@@ -24,8 +24,8 @@ import { ServerEventsService } from './services/server-events/server-events.serv
 })
 export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
   totalData = 0;
-  pageSizes = [5, 10, 15];
-  defaultPageSize = 10;
+  defaultPageSize = 5;
+  pageSizes: Array<number> = [5, 10, 15];
   isLoadingResults = true;
   data: Array<Friend> = [];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -36,8 +36,8 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
     public dialog: MatDialog,
     public snackBar: MatSnackBar,
     private cdr: ChangeDetectorRef,
+    private friendsService: FriendsService,
     private serverEventsService: ServerEventsService,
-    private friendsService: FriendsService
   ) {}
 
   ngOnInit(): void {
@@ -66,7 +66,7 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
     });
   }
 
-  getFriends(_searchParam = ''): void {
+  getFriends(searchParam = ''): void {
     this.paginator.page
       .pipe(
         startWith({}),
@@ -76,7 +76,7 @@ export class AppComponent implements AfterViewInit, OnInit, OnDestroy {
             ?.getFriends(
               this.paginator.pageIndex + 1,
               this.paginator.pageSize,
-              _searchParam
+              searchParam
             )
             .pipe(catchError(() => observableOf(null)));
         }),

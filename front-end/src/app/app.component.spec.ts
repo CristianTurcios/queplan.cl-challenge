@@ -1,22 +1,17 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { of, throwError } from 'rxjs';
 import { AppComponent } from './app.component';
 import { ServerEventsService } from './services/server-events/server-events.service';
 import { FriendsService } from './services/friends/friends.service';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
-import { MatTableModule } from '@angular/material/table';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { testUtils } from 'src/utils/test-utils';
-import { By } from '@angular/platform-browser';
-import { of, throwError } from 'rxjs';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { DialogComponent } from './components/dialog/dialog.component';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { FilterComponent } from './components/filter/filter.component';
 import { TableComponent } from './components/table/table.component';
+import { HeaderComponent } from './components/header/header.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 class MatSnackBarStub {
   open() {
@@ -42,17 +37,14 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       declarations: [AppComponent, DialogComponent],
       imports: [
-        MatTableModule,
-        MatProgressSpinnerModule,
-        MatSortModule,
         MatPaginatorModule,
         MatDialogModule,
         MatSnackBarModule,
         NoopAnimationsModule,
-        MatFormFieldModule,
-        MatInputModule,
         FilterComponent,
         TableComponent,
+        HeaderComponent,
+        SpinnerComponent,
       ],
       providers: [
         { provide: MatSnackBar, useClass: MatSnackBarStub },
@@ -169,7 +161,7 @@ describe('AppComponent', () => {
       fixture.detectChanges();
 
       component.getFriends();
-      expect(friendsService.getFriends).toHaveBeenCalledWith(1, 10, '');
+      expect(friendsService.getFriends).toHaveBeenCalledWith(1, 5, '');
       expect(component.data[0].name).toEqual('Javier');
     });
 
@@ -178,7 +170,7 @@ describe('AppComponent', () => {
       fixture.detectChanges();
 
       component.getFriends('Javier');
-      expect(friendsService.getFriends).toHaveBeenCalledWith(1, 10, 'Javier');
+      expect(friendsService.getFriends).toHaveBeenCalledWith(1, 5, 'Javier');
       expect(component.data[0].name).toEqual('Javier');
     });
 
@@ -210,15 +202,6 @@ describe('AppComponent', () => {
       spyOn(component.snackBar, 'open').and.callThrough();
       component.showSnackBar('message');
       expect(component.snackBar.open).toHaveBeenCalled();
-    });
-  });
-
-  describe('View Test', () => {
-    it('should render title', () => {
-      const dataTestId = 'friends-title';
-      const selectorString = testUtils.getTestIdSelectorString(dataTestId);
-      const elements = fixture.debugElement.queryAll(By.css(selectorString));
-      expect(elements.length).toBe(1);
     });
   });
 });
