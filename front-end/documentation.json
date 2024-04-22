@@ -1,0 +1,1878 @@
+{
+    "pipes": [],
+    "interfaces": [
+        {
+            "name": "ApiResponse",
+            "id": "interface-ApiResponse-f9099b0b5d5ddbc199cd8214f910128d78cb69698d0facee46956ec5a3b15517cb23a507671fb58cc36ed29d326e90e3663a860e03b626325321645f72080a59",
+            "file": "src/app/models/api-response.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "import { Friend } from './friend';\nimport { Pagination, PaginationLinks } from './pagination';\n\nexport interface ApiResponse {\n  data: Array<Friend>;\n  meta: Pagination;\n  links: PaginationLinks;\n}\n",
+            "properties": [
+                {
+                    "name": "data",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Array<Friend>",
+                    "optional": false,
+                    "description": "",
+                    "line": 5
+                },
+                {
+                    "name": "links",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "PaginationLinks",
+                    "optional": false,
+                    "description": "",
+                    "line": 7
+                },
+                {
+                    "name": "meta",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Pagination",
+                    "optional": false,
+                    "description": "",
+                    "line": 6
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 171,
+            "methods": [],
+            "extends": []
+        },
+        {
+            "name": "Friend",
+            "id": "interface-Friend-db69d0d32b8c72348989662312843e62464eae063d6853c6ebbb3ede11adfaa11c2cc115a142993dfea124d0e800ea0176cb1ac5b8152fb510127315460d850d",
+            "file": "src/app/models/friend.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "export interface Friend {\n  id: number;\n  name: string;\n  gender: string;\n  updatedName?: string;\n  updatedGender?: string;\n}\n",
+            "properties": [
+                {
+                    "name": "gender",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 4
+                },
+                {
+                    "name": "id",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number",
+                    "optional": false,
+                    "description": "",
+                    "line": 2
+                },
+                {
+                    "name": "name",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 3
+                },
+                {
+                    "name": "updatedGender",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": true,
+                    "description": "",
+                    "line": 6
+                },
+                {
+                    "name": "updatedName",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": true,
+                    "description": "",
+                    "line": 5
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 171,
+            "methods": [],
+            "extends": []
+        },
+        {
+            "name": "Pagination",
+            "id": "interface-Pagination-b0d741566bdda6c045ae7a27a85e9d03b6a869798ac638d18e7e57da23b1287e381a5f1b856b46fcf4cf45b401ae16e60d343a9759651d6d8fea250b85b8613d",
+            "file": "src/app/models/pagination.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "import { Sort } from '../types/sort';\n\nexport interface Pagination {\n  totalItems: number;\n  itemCount: number;\n  itemsPerPage: number;\n  totalPages: number;\n  currentPage: number;\n  sortBy: [[string, Sort]];\n}\n\nexport interface PaginationLinks {\n  current: string;\n  next: string;\n  last: string;\n}\n",
+            "properties": [
+                {
+                    "name": "currentPage",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number",
+                    "optional": false,
+                    "description": "",
+                    "line": 8
+                },
+                {
+                    "name": "itemCount",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number",
+                    "optional": false,
+                    "description": "",
+                    "line": 5
+                },
+                {
+                    "name": "itemsPerPage",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number",
+                    "optional": false,
+                    "description": "",
+                    "line": 6
+                },
+                {
+                    "name": "sortBy",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 9
+                },
+                {
+                    "name": "totalItems",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number",
+                    "optional": false,
+                    "description": "",
+                    "line": 4
+                },
+                {
+                    "name": "totalPages",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number",
+                    "optional": false,
+                    "description": "",
+                    "line": 7
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 171,
+            "methods": [],
+            "extends": []
+        },
+        {
+            "name": "PaginationLinks",
+            "id": "interface-PaginationLinks-b0d741566bdda6c045ae7a27a85e9d03b6a869798ac638d18e7e57da23b1287e381a5f1b856b46fcf4cf45b401ae16e60d343a9759651d6d8fea250b85b8613d",
+            "file": "src/app/models/pagination.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "import { Sort } from '../types/sort';\n\nexport interface Pagination {\n  totalItems: number;\n  itemCount: number;\n  itemsPerPage: number;\n  totalPages: number;\n  currentPage: number;\n  sortBy: [[string, Sort]];\n}\n\nexport interface PaginationLinks {\n  current: string;\n  next: string;\n  last: string;\n}\n",
+            "properties": [
+                {
+                    "name": "current",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 13
+                },
+                {
+                    "name": "last",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 15
+                },
+                {
+                    "name": "next",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 14
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 171,
+            "methods": [],
+            "extends": []
+        }
+    ],
+    "injectables": [
+        {
+            "name": "FriendsService",
+            "id": "injectable-FriendsService-c85584a4360c8ff1d0adc2273397320f9ec1a50a51eb9057a9ff52ad66396bf79049d24cb4277238a18e6881ddffb34da4bf6a6814dc96a4f113839cb89a24dd",
+            "file": "src/app/services/friends/friends.service.ts",
+            "properties": [],
+            "methods": [
+                {
+                    "name": "getFriends",
+                    "args": [
+                        {
+                            "name": "pageNumber",
+                            "type": "number",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "defaultValue": "1"
+                        },
+                        {
+                            "name": "pageSize",
+                            "type": "number",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "defaultValue": "10"
+                        },
+                        {
+                            "name": "searchParam",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "defaultValue": "''"
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "Observable<ApiResponse>",
+                    "typeParameters": [],
+                    "line": 13,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "pageNumber",
+                            "type": "number",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "defaultValue": "1",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "pageSize",
+                            "type": "number",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "defaultValue": "10",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "searchParam",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "defaultValue": "''",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "description": "",
+            "rawdescription": "\n",
+            "sourceCode": "import { HttpClient } from '@angular/common/http';\nimport { Injectable } from '@angular/core';\nimport { Observable } from 'rxjs';\nimport { ApiResponse } from '../../models/api-response';\nimport { environment } from 'src/environments/environment';\n\n@Injectable({\n  providedIn: 'root',\n})\nexport class FriendsService {\n  constructor(private _httpClient: HttpClient) {}\n\n  getFriends(\n    pageNumber = 1,\n    pageSize = 10,\n    searchParam = ''\n  ): Observable<ApiResponse> {\n    const defaultUrl = `${environment.API_URL}/my-friends?page=${pageNumber}&limit=${pageSize}`;\n    const url = searchParam\n      ? `${defaultUrl}&search=${searchParam}`\n      : defaultUrl;\n    return this._httpClient.get<ApiResponse>(url);\n  }\n}\n",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "_httpClient",
+                        "type": "HttpClient",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 10,
+                "jsdoctags": [
+                    {
+                        "name": "_httpClient",
+                        "type": "HttpClient",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "extends": [],
+            "type": "injectable"
+        },
+        {
+            "name": "ServerEventsService",
+            "id": "injectable-ServerEventsService-48757281a11b01e6cb495c38c801bfeea4b1b947190535e6979c77381a7996af7722d239cfd0e57fef264c8c90cb3458de25b5828e1da37b9a167f22881f7e3d",
+            "file": "src/app/services/server-events/server-events.service.ts",
+            "properties": [
+                {
+                    "name": "eventSource",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "EventSource",
+                    "optional": false,
+                    "description": "",
+                    "line": 10,
+                    "modifierKind": [
+                        123
+                    ]
+                }
+            ],
+            "methods": [
+                {
+                    "name": "close",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 52,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n\nMethod for closing the connection\n",
+                    "description": "<p>Method for closing the connection</p>\n"
+                },
+                {
+                    "name": "connectToServerSentEvents",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "Observable<Friend>",
+                    "typeParameters": [],
+                    "line": 32,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n\nMethod for establishing connection and subscribing to events from SSE\n",
+                    "description": "<p>Method for establishing connection and subscribing to events from SSE</p>\n",
+                    "jsdoctags": []
+                },
+                {
+                    "name": "getEventSource",
+                    "args": [
+                        {
+                            "name": "url",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "EventSource",
+                    "typeParameters": [],
+                    "line": 24,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n\nMethod for creation of the EventSource instance\n",
+                    "description": "<p>Method for creation of the EventSource instance</p>\n",
+                    "jsdoctags": [
+                        {
+                            "name": {
+                                "pos": 701,
+                                "end": 704,
+                                "flags": 16842752,
+                                "modifierFlagsCache": 0,
+                                "transformFlags": 0,
+                                "kind": 80,
+                                "escapedText": "url"
+                            },
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "pos": 695,
+                                "end": 700,
+                                "flags": 16842752,
+                                "modifierFlagsCache": 0,
+                                "transformFlags": 0,
+                                "kind": 80,
+                                "escapedText": "param"
+                            },
+                            "comment": "<ul>\n<li>SSE server api path</li>\n</ul>\n"
+                        }
+                    ]
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "description": "",
+            "rawdescription": "\n",
+            "sourceCode": "import { Injectable, NgZone } from '@angular/core';\nimport { Observable, Subscriber } from 'rxjs';\nimport { Friend } from 'src/app/models/friend';\nimport { environment } from 'src/environments/environment';\n\n@Injectable({\n  providedIn: 'root',\n})\nexport class ServerEventsService {\n  private eventSource!: EventSource;\n\n  /**\n   * constructor\n   * @param zone - we need to use zone while working with server-sent events\n   * because it's an asynchronous operations which are run outside of change detection scope\n   * and we need to notify Angular about changes related to SSE events\n   */\n  constructor(private zone: NgZone) {}\n\n  /**\n   * Method for creation of the EventSource instance\n   * @param url - SSE server api path\n   */\n  getEventSource(url: string): EventSource {\n    return new EventSource(url);\n  }\n\n  /**\n   * Method for establishing connection and subscribing to events from SSE\n   * @param url - SSE server api path\n   */\n  connectToServerSentEvents(): Observable<Friend> {\n    const url = `${environment.SERVER_EVENT}/sse`;\n    this.eventSource = this.getEventSource(url);\n\n    return new Observable((subscriber: Subscriber<Friend>) => {\n      this.eventSource.onerror = error => {\n        this.zone.run(() => subscriber.error(error));\n      };\n\n      this.eventSource.addEventListener('message', message => {\n        this.zone.run(() =>\n          subscriber.next(JSON.parse(JSON.parse(message.data)))\n        );\n      });\n    });\n  }\n\n  /**\n   * Method for closing the connection\n   */\n  close(): void {\n    if (!this.eventSource) {\n      return;\n    }\n\n    this.eventSource.close();\n  }\n}\n",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "<p>constructor\nbecause it&#39;s an asynchronous operations which are run outside of change detection scope\nand we need to notify Angular about changes related to SSE events</p>\n",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "zone",
+                        "type": "NgZone",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 10,
+                "rawdescription": "\n\nconstructor\nbecause it's an asynchronous operations which are run outside of change detection scope\nand we need to notify Angular about changes related to SSE events\n",
+                "jsdoctags": [
+                    {
+                        "name": {
+                            "pos": 355,
+                            "end": 359,
+                            "flags": 16842752,
+                            "modifierFlagsCache": 0,
+                            "transformFlags": 0,
+                            "kind": 80,
+                            "escapedText": "zone"
+                        },
+                        "type": "NgZone",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "pos": 349,
+                            "end": 354,
+                            "flags": 16842752,
+                            "modifierFlagsCache": 0,
+                            "transformFlags": 0,
+                            "kind": 80,
+                            "escapedText": "param"
+                        },
+                        "comment": "<ul>\n<li>we need to use zone while working with server-sent events\nbecause it&#39;s an asynchronous operations which are run outside of change detection scope\nand we need to notify Angular about changes related to SSE events</li>\n</ul>\n"
+                    }
+                ]
+            },
+            "extends": [],
+            "type": "injectable"
+        }
+    ],
+    "guards": [],
+    "interceptors": [],
+    "classes": [
+        {
+            "name": "EventSourceMock",
+            "id": "class-EventSourceMock-8cb60639272fd16df4e58e48608f7f120153ef6d66bfc0f17702c5295d1795247a3cd38b719df544b91612d924d5add0e365cfe877b66b383506010e7cf090a5",
+            "file": "src/app/services/server-events/event-source-mock.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "class",
+            "sourceCode": "export class EventSourceMock {\n  private listeners: any = [];\n\n  // eslint-disable-next-line @typescript-eslint/ban-types\n  addEventListener(eventName: string, cb: any) {\n    this.listeners.push(cb);\n  }\n\n  // eslint-disable-next-line @typescript-eslint/no-empty-function\n  onerror(error: any) {}\n\n  // Helper method for emitting errors\n  emitError(data: any) {\n    this.onerror(data);\n  }\n\n  // Helper method for emitting events\n  emit(data: any) {\n    this.listeners.forEach((cb: any) => cb(data));\n  }\n\n  // eslint-disable-next-line @typescript-eslint/no-empty-function\n  close() {}\n}\n",
+            "properties": [
+                {
+                    "name": "listeners",
+                    "defaultValue": "[]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 2,
+                    "modifierKind": [
+                        123
+                    ]
+                }
+            ],
+            "methods": [
+                {
+                    "name": "addEventListener",
+                    "args": [
+                        {
+                            "name": "eventName",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "cb",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 5,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "eventName",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "cb",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "close",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 23,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "emit",
+                    "args": [
+                        {
+                            "name": "data",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 18,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "data",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "emitError",
+                    "args": [
+                        {
+                            "name": "data",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 13,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "data",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "onerror",
+                    "args": [
+                        {
+                            "name": "error",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 10,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "error",
+                            "type": "any",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "indexSignatures": [],
+            "extends": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "hostBindings": [],
+            "hostListeners": []
+        }
+    ],
+    "directives": [],
+    "components": [
+        {
+            "name": "AppComponent",
+            "id": "component-AppComponent-31106eb9e2c5a1793e8ab04d96bd2df7f21ddb41db0679d75fcdd5d9a7ba793be773d6dfd632f9b9e9b4076b82848c5ffc23a1f015660c356f5888848a41b678",
+            "file": "src/app/app.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-root",
+            "styleUrls": [
+                "./app.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./app.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "data",
+                    "defaultValue": "[]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Array<Friend>",
+                    "optional": false,
+                    "description": "",
+                    "line": 30
+                },
+                {
+                    "name": "defaultPageSize",
+                    "defaultValue": "5",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number",
+                    "optional": false,
+                    "description": "",
+                    "line": 27
+                },
+                {
+                    "name": "dialog",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "MatDialog",
+                    "optional": false,
+                    "description": "",
+                    "line": 36,
+                    "modifierKind": [
+                        125
+                    ]
+                },
+                {
+                    "name": "displayedColumns",
+                    "defaultValue": "new Set(['id', 'name', 'gender'])",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Set<Columns>",
+                    "optional": false,
+                    "description": "",
+                    "line": 33
+                },
+                {
+                    "name": "eventSourceSubscription",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "SubscriptionLike",
+                    "optional": false,
+                    "description": "",
+                    "line": 32,
+                    "modifierKind": [
+                        123,
+                        148
+                    ]
+                },
+                {
+                    "name": "isLoadingResults",
+                    "defaultValue": "true",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 29
+                },
+                {
+                    "name": "pageSizes",
+                    "defaultValue": "[5, 10, 15]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Array<number>",
+                    "optional": false,
+                    "description": "",
+                    "line": 28
+                },
+                {
+                    "name": "paginator",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "MatPaginator",
+                    "optional": false,
+                    "description": "",
+                    "line": 31,
+                    "decorators": [
+                        {
+                            "name": "ViewChild",
+                            "stringifiedArguments": "MatPaginator"
+                        }
+                    ],
+                    "modifierKind": [
+                        170
+                    ]
+                },
+                {
+                    "name": "snackBar",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "MatSnackBar",
+                    "optional": false,
+                    "description": "",
+                    "line": 37,
+                    "modifierKind": [
+                        125
+                    ]
+                },
+                {
+                    "name": "totalData",
+                    "defaultValue": "0",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number",
+                    "optional": false,
+                    "description": "",
+                    "line": 26
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "filterData",
+                    "args": [
+                        {
+                            "name": "value",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 97,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "value",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "getFriends",
+                    "args": [
+                        {
+                            "name": "searchParam",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "defaultValue": "''"
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 69,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "searchParam",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "defaultValue": "''",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "listenServerEvents",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 52,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "ngAfterViewInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 47,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "ngOnDestroy",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 118,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 43,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "showDialog",
+                    "args": [
+                        {
+                            "name": "data",
+                            "type": "Friend",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 108,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "data",
+                            "type": "Friend",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "showSnackBar",
+                    "args": [
+                        {
+                            "name": "message",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 114,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "message",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "updateData",
+                    "args": [
+                        {
+                            "name": "eventData",
+                            "type": "Friend",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "index",
+                            "type": "number",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 101,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "eventData",
+                            "type": "Friend",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "index",
+                            "type": "number",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": false,
+            "imports": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import {\n  AfterViewInit,\n  ChangeDetectorRef,\n  Component,\n  OnDestroy,\n  OnInit,\n  ViewChild,\n} from '@angular/core';\nimport { Friend } from './models/friend';\nimport { Columns } from './types/displayed-columns';\nimport { MatDialog } from '@angular/material/dialog';\nimport { MatSnackBar } from '@angular/material/snack-bar';\nimport { MatPaginator } from '@angular/material/paginator';\nimport { SubscriptionLike, of as observableOf } from 'rxjs';\nimport { FriendsService } from './services/friends/friends.service';\nimport { DialogComponent } from './components/dialog/dialog.component';\nimport { catchError, map, startWith, switchMap } from 'rxjs/operators';\nimport { ServerEventsService } from './services/server-events/server-events.service';\n\n@Component({\n  selector: 'app-root',\n  templateUrl: './app.component.html',\n  styleUrls: ['./app.component.scss'],\n})\nexport class AppComponent implements AfterViewInit, OnInit, OnDestroy {\n  totalData = 0;\n  defaultPageSize = 5;\n  pageSizes: Array<number> = [5, 10, 15];\n  isLoadingResults = true;\n  data: Array<Friend> = [];\n  @ViewChild(MatPaginator) paginator!: MatPaginator;\n  private readonly eventSourceSubscription!: SubscriptionLike;\n  displayedColumns: Set<Columns> = new Set(['id', 'name', 'gender']);\n\n  constructor(\n    public dialog: MatDialog,\n    public snackBar: MatSnackBar,\n    private cdr: ChangeDetectorRef,\n    private friendsService: FriendsService,\n    private serverEventsService: ServerEventsService\n  ) {}\n\n  ngOnInit(): void {\n    this.listenServerEvents();\n  }\n\n  ngAfterViewInit(): void {\n    this.getFriends();\n    this.cdr.detectChanges();\n  }\n\n  listenServerEvents() {\n    this.serverEventsService.connectToServerSentEvents().subscribe({\n      next: (data: Friend) => {\n        const index = this.data.findIndex((el: Friend) => data.id === el.id);\n\n        if (index !== -1) {\n          this.updateData(data, index);\n        } else {\n          this.showDialog(data);\n        }\n      },\n      error: () => {\n        this.showSnackBar('Error connecting with server side events');\n      },\n    });\n  }\n\n  getFriends(searchParam = ''): void {\n    this.paginator.page\n      .pipe(\n        startWith({}),\n        switchMap(() => {\n          this.isLoadingResults = true;\n          return this.friendsService\n            ?.getFriends(\n              this.paginator.pageIndex + 1,\n              this.paginator.pageSize,\n              searchParam\n            )\n            .pipe(catchError(() => observableOf(null)));\n        }),\n        map(data => {\n          // Flip flag to show that loading has finished.\n          this.isLoadingResults = false;\n\n          if (data === null) {\n            return { data: [], meta: {}, pagination: {} };\n          }\n          this.totalData = data.meta.totalItems;\n          return data;\n        })\n      )\n      .subscribe(res => (this.data = res.data));\n  }\n\n  filterData(value: string): void {\n    this.getFriends(value);\n  }\n\n  updateData(eventData: Friend, index: number): void {\n    this.displayedColumns.add('updatedName');\n    this.displayedColumns.add('updatedGender');\n    this.data[index].updatedName = eventData.name;\n    this.data[index].updatedGender = eventData.gender;\n  }\n\n  showDialog(data: Friend): void {\n    this.dialog.open(DialogComponent, {\n      data,\n    });\n  }\n\n  showSnackBar(message: string) {\n    this.snackBar.open(message, 'Undo');\n  }\n\n  ngOnDestroy() {\n    this.eventSourceSubscription?.unsubscribe();\n    this.serverEventsService.close();\n  }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".page-container {\n  .container {\n    position: relative;\n    margin: 0 40px;\n  }\n}\n",
+                    "styleUrl": "./app.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "dialog",
+                        "type": "MatDialog",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "snackBar",
+                        "type": "MatSnackBar",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "cdr",
+                        "type": "ChangeDetectorRef",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "friendsService",
+                        "type": "FriendsService",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "serverEventsService",
+                        "type": "ServerEventsService",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 33,
+                "jsdoctags": [
+                    {
+                        "name": "dialog",
+                        "type": "MatDialog",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "snackBar",
+                        "type": "MatSnackBar",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "cdr",
+                        "type": "ChangeDetectorRef",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "friendsService",
+                        "type": "FriendsService",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "serverEventsService",
+                        "type": "ServerEventsService",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "extends": [],
+            "implements": [
+                "AfterViewInit",
+                "OnInit",
+                "OnDestroy"
+            ],
+            "templateData": "<div class=\"page-container\">\n  <app-header title=\"Friends\"></app-header>\n  <div class=\"container mat-elevation-z8\">\n    <app-spinner *ngIf=\"isLoadingResults\"></app-spinner>\n    <app-table [data]=\"data\" [displayedColumns]=\"displayedColumns\"></app-table>\n    <mat-paginator\n      #paginator\n      [length]=\"totalData\"\n      [pageSize]=\"defaultPageSize\"\n      [pageSizeOptions]=\"pageSizes\"\n      showFirstLastButtons></mat-paginator>\n  </div>\n</div>\n"
+        },
+        {
+            "name": "DialogComponent",
+            "id": "component-DialogComponent-94bf20a5acadcf8ca3a0744faf396fbf791a73461532b61d426edd94f4848230a0e2e1d5c1a581615124ee4928e765812f2bc8a25edc5d5a0a44f596a91b028c",
+            "file": "src/app/components/dialog/dialog.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-dialog",
+            "styleUrls": [
+                "./dialog.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./dialog.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "data",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Friend",
+                    "optional": false,
+                    "description": "",
+                    "line": 11,
+                    "decorators": [
+                        {
+                            "name": "Inject",
+                            "stringifiedArguments": "MAT_DIALOG_DATA"
+                        }
+                    ],
+                    "modifierKind": [
+                        170,
+                        125
+                    ]
+                }
+            ],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": false,
+            "imports": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, Inject } from '@angular/core';\nimport { MAT_DIALOG_DATA } from '@angular/material/dialog';\nimport { Friend } from 'src/app/models/friend';\n\n@Component({\n  selector: 'app-dialog',\n  templateUrl: './dialog.component.html',\n  styleUrls: ['./dialog.component.scss'],\n})\nexport class DialogComponent {\n  constructor(@Inject(MAT_DIALOG_DATA) public data: Friend) {}\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./dialog.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "data",
+                        "type": "Friend",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 10,
+                "jsdoctags": [
+                    {
+                        "name": "data",
+                        "type": "Friend",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "extends": [],
+            "templateData": "<h2 mat-dialog-title>Alert</h2>\n<mat-dialog-content>\n  Record with name: <strong>{{ data.name }}</strong>\n  has been modified in your friends\n</mat-dialog-content>\n"
+        },
+        {
+            "name": "FilterComponent",
+            "id": "component-FilterComponent-df1b6d98502102c6c149d2b51cf567f2a56e5bbf5ed0c673a07f39d1d9e8413b9f2aa4c42c9939a1f6f4f938b94f759fa98c42d87c1cda1e31065c920565a436",
+            "file": "src/app/components/filter/filter.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-filter",
+            "styleUrls": [
+                "./filter.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./filter.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [
+                {
+                    "name": "filterData",
+                    "defaultValue": "new EventEmitter<string>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 23,
+                    "type": "EventEmitter"
+                }
+            ],
+            "propertiesClass": [
+                {
+                    "name": "input",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "ElementRef",
+                    "optional": false,
+                    "description": "",
+                    "line": 22,
+                    "decorators": [
+                        {
+                            "name": "ViewChild",
+                            "stringifiedArguments": "'input'"
+                        }
+                    ],
+                    "modifierKind": [
+                        170
+                    ]
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "ngAfterViewInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 25,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "CommonModule",
+                    "type": "module"
+                },
+                {
+                    "name": "MatFormFieldModule",
+                    "type": "module"
+                },
+                {
+                    "name": "MatInputModule",
+                    "type": "module"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import {\n  AfterViewInit,\n  Component,\n  ElementRef,\n  EventEmitter,\n  Output,\n  ViewChild,\n} from '@angular/core';\nimport { CommonModule } from '@angular/common';\nimport { MatFormFieldModule } from '@angular/material/form-field';\nimport { MatInputModule } from '@angular/material/input';\nimport { debounceTime, distinctUntilChanged, fromEvent, map } from 'rxjs';\n\n@Component({\n  selector: 'app-filter',\n  standalone: true,\n  imports: [CommonModule, MatFormFieldModule, MatInputModule],\n  templateUrl: './filter.component.html',\n  styleUrls: ['./filter.component.scss'],\n})\nexport class FilterComponent implements AfterViewInit {\n  @ViewChild('input') input!: ElementRef;\n  @Output() filterData = new EventEmitter<string>();\n\n  ngAfterViewInit() {\n    fromEvent(this.input.nativeElement, 'keyup')\n      .pipe(\n        // unable to find correct type for this, should be KeyboardEvent :/\n        map((event: any) => event.target.value.trim().toLocaleLowerCase()),\n        debounceTime(400),\n        distinctUntilChanged()\n      )\n      .subscribe((value: string) => this.filterData.emit(value));\n  }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".mat-mdc-form-field {\n  font-size: 14px;\n  width: -webkit-fill-available;\n  margin: 0 40px;\n}",
+                    "styleUrl": "./filter.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "extends": [],
+            "implements": [
+                "AfterViewInit"
+            ],
+            "templateData": "<mat-form-field>\n  <mat-label>Filter</mat-label>\n  <input\n    matInput\n    placeholder=\"Ex. Cristian\"\n    #input\n    data-testid=\"search-input\" />\n</mat-form-field>\n"
+        },
+        {
+            "name": "HeaderComponent",
+            "id": "component-HeaderComponent-d2def8486b17c4ad7035ab01c27135d981e104daef1a1821db3466f5556fd2dfedf27da48e0a8261e26653d7108f5a57842b2bfb4a39351b0abbddfa12a10f15",
+            "file": "src/app/components/header/header.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-header",
+            "styleUrls": [
+                "./header.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./header.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [
+                {
+                    "name": "title",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 12,
+                    "type": "string",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "CommonModule",
+                    "type": "module"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, Input } from '@angular/core';\nimport { CommonModule } from '@angular/common';\n\n@Component({\n  selector: 'app-header',\n  standalone: true,\n  imports: [CommonModule],\n  templateUrl: './header.component.html',\n  styleUrls: ['./header.component.scss'],\n})\nexport class HeaderComponent {\n  @Input() title = '';\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".friends-title {\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    font-size: 2.25rem;\n    margin: 30px;\n    padding: 30px;\n  }",
+                    "styleUrl": "./header.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "extends": [],
+            "templateData": "<h1 class=\"friends-title\" data-testid=\"friends-title\">{{ title }}</h1>\n"
+        },
+        {
+            "name": "SpinnerComponent",
+            "id": "component-SpinnerComponent-8b0b23a4c2f3cfb6d7f7ec6404cbd7abff215d2fd0b398c899db01408cec67b5383240a1707ce7efcf6945bce8a79c8bd7afd1f89255934acf17c2bd0b40631b",
+            "file": "src/app/components/spinner/spinner.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-spinner",
+            "styleUrls": [
+                "./spinner.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./spinner.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "CommonModule",
+                    "type": "module"
+                },
+                {
+                    "name": "MatProgressSpinnerModule",
+                    "type": "module"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nimport { MatProgressSpinnerModule } from '@angular/material/progress-spinner';\n\n@Component({\n  selector: 'app-spinner',\n  standalone: true,\n  imports: [CommonModule, MatProgressSpinnerModule],\n  templateUrl: './spinner.component.html',\n  styleUrls: ['./spinner.component.scss'],\n})\nexport class SpinnerComponent {}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".loading-shade {\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 56px;\n  right: 0;\n  background: rgba(0, 0, 0, 0.15);\n  z-index: 1;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n",
+                    "styleUrl": "./spinner.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "extends": [],
+            "templateData": "<div class=\"loading-shade\">\n  <mat-spinner></mat-spinner>\n</div>\n"
+        },
+        {
+            "name": "TableComponent",
+            "id": "component-TableComponent-03f528329c6d06432ade6df94854df2adee823e428cd4dd58f34269f693bddaeffbc5d8587afeaacadb05cc0fc53bc2f23ca801a82157d2fa9969249dab543ee",
+            "file": "src/app/components/table/table.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-table",
+            "styleUrls": [
+                "./table.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./table.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [
+                {
+                    "name": "data",
+                    "defaultValue": "[]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 15,
+                    "type": "Array<Friend>",
+                    "decorators": []
+                },
+                {
+                    "name": "displayedColumns",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 16,
+                    "type": "Set<Columns>",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "CommonModule",
+                    "type": "module"
+                },
+                {
+                    "name": "MatTableModule",
+                    "type": "module"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, Input } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nimport { MatTableModule } from '@angular/material/table';\nimport { Friend } from 'src/app/models/friend';\nimport { Columns } from 'src/app/types/displayed-columns';\n\n@Component({\n  selector: 'app-table',\n  standalone: true,\n  imports: [CommonModule, MatTableModule],\n  templateUrl: './table.component.html',\n  styleUrls: ['./table.component.scss'],\n})\nexport class TableComponent {\n  @Input() data: Array<Friend> = [];\n  @Input() displayedColumns!: Set<Columns>;\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./table.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "extends": [],
+            "templateData": "<div class=\"table-container\">\n  <table mat-table [dataSource]=\"data\">\n    <ng-container\n      [matColumnDef]=\"column\"\n      *ngFor=\"let column of displayedColumns\">\n      <th mat-header-cell *matHeaderCellDef>{{ column | titlecase }}</th>\n      <td mat-cell *matCellDef=\"let row\">{{ row[column] }}</td>\n    </ng-container>\n\n    <tr mat-header-row *matHeaderRowDef=\"displayedColumns\"></tr>\n    <tr mat-row *matRowDef=\"let row; columns: displayedColumns\"></tr>\n  </table>\n</div>\n"
+        }
+    ],
+    "modules": [
+        {
+            "name": "AppModule",
+            "id": "module-AppModule-c246e518b5acb7438e28788181ff5f60c874b6861166b54a51e2b8ba1acae7bcf5777e8291aa99f69c2e4bc8b7d1da2cb740d03fbab8584641675e084283eb24",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "src/app/app.module.ts",
+            "methods": [],
+            "sourceCode": "import { NgModule } from '@angular/core';\nimport { BrowserModule } from '@angular/platform-browser';\nimport { AppComponent } from './app.component';\nimport { MatPaginatorModule } from '@angular/material/paginator';\nimport { HttpClientModule } from '@angular/common/http';\nimport { BrowserAnimationsModule } from '@angular/platform-browser/animations';\nimport { DialogComponent } from './components/dialog/dialog.component';\nimport { MatDialogModule } from '@angular/material/dialog';\nimport { MatSnackBarModule } from '@angular/material/snack-bar';\nimport { FilterComponent } from './components/filter/filter.component';\nimport { TableComponent } from './components/table/table.component';\nimport { HeaderComponent } from './components/header/header.component';\nimport { SpinnerComponent } from './components/spinner/spinner.component';\n\n@NgModule({\n  declarations: [AppComponent, DialogComponent],\n  imports: [\n    BrowserModule,\n    MatPaginatorModule,\n    HttpClientModule,\n    MatDialogModule,\n    BrowserAnimationsModule,\n    MatSnackBarModule,\n    FilterComponent,\n    TableComponent,\n    HeaderComponent,\n    SpinnerComponent,\n  ],\n  providers: [],\n  bootstrap: [AppComponent],\n})\nexport class AppModule {}\n",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": [
+                        {
+                            "name": "AppComponent"
+                        },
+                        {
+                            "name": "DialogComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "imports",
+                    "elements": [
+                        {
+                            "name": "FilterComponent"
+                        },
+                        {
+                            "name": "HeaderComponent"
+                        },
+                        {
+                            "name": "SpinnerComponent"
+                        },
+                        {
+                            "name": "TableComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": [
+                        {
+                            "name": "AppComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        }
+    ],
+    "miscellaneous": {
+        "variables": [
+            {
+                "name": "environment",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/environments/environment.development.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "object",
+                "defaultValue": "{\n  API_URL: 'http://localhost:3000',\n  SERVER_EVENT: 'http://localhost:8000',\n}"
+            },
+            {
+                "name": "environment",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/environments/environment.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "object",
+                "defaultValue": "{\n  API_URL: 'http://localhost:3000',\n  SERVER_EVENT: 'http://localhost:8000',\n}"
+            },
+            {
+                "name": "testUtils",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/utils/test-utils.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "object",
+                "defaultValue": "{\n  getTestIdSelectorString,\n}"
+            }
+        ],
+        "functions": [
+            {
+                "name": "getTestIdSelectorString",
+                "file": "src/utils/test-utils.ts",
+                "ctype": "miscellaneous",
+                "subtype": "function",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "args": [
+                    {
+                        "name": "val",
+                        "type": "string",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "returnType": "string",
+                "jsdoctags": [
+                    {
+                        "name": "val",
+                        "type": "string",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            }
+        ],
+        "typealiases": [
+            {
+                "name": "Columns",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "\"id\" | \"name\" | \"gender\" | \"updatedName\" | \"updatedGender\"",
+                "file": "src/app/types/displayed-columns.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 192
+            },
+            {
+                "name": "Sort",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "\"ASC\" | \"DESC\"",
+                "file": "src/app/types/sort.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 192
+            }
+        ],
+        "enumerations": [],
+        "groupedVariables": {
+            "src/environments/environment.development.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/environments/environment.development.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "object",
+                    "defaultValue": "{\n  API_URL: 'http://localhost:3000',\n  SERVER_EVENT: 'http://localhost:8000',\n}"
+                }
+            ],
+            "src/environments/environment.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/environments/environment.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "object",
+                    "defaultValue": "{\n  API_URL: 'http://localhost:3000',\n  SERVER_EVENT: 'http://localhost:8000',\n}"
+                }
+            ],
+            "src/utils/test-utils.ts": [
+                {
+                    "name": "testUtils",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/utils/test-utils.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "object",
+                    "defaultValue": "{\n  getTestIdSelectorString,\n}"
+                }
+            ]
+        },
+        "groupedFunctions": {
+            "src/utils/test-utils.ts": [
+                {
+                    "name": "getTestIdSelectorString",
+                    "file": "src/utils/test-utils.ts",
+                    "ctype": "miscellaneous",
+                    "subtype": "function",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "args": [
+                        {
+                            "name": "val",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "returnType": "string",
+                    "jsdoctags": [
+                        {
+                            "name": "val",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "groupedEnumerations": {},
+        "groupedTypeAliases": {
+            "src/app/types/displayed-columns.ts": [
+                {
+                    "name": "Columns",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "\"id\" | \"name\" | \"gender\" | \"updatedName\" | \"updatedGender\"",
+                    "file": "src/app/types/displayed-columns.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 192
+                }
+            ],
+            "src/app/types/sort.ts": [
+                {
+                    "name": "Sort",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "\"ASC\" | \"DESC\"",
+                    "file": "src/app/types/sort.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 192
+                }
+            ]
+        }
+    },
+    "routes": [],
+    "coverage": {
+        "count": 3,
+        "status": "low",
+        "files": [
+            {
+                "filePath": "src/app/app.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "AppComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/21",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/dialog/dialog.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "DialogComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/filter/filter.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "FilterComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/4",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/header/header.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "HeaderComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/2",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/spinner/spinner.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "SpinnerComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/table/table.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "TableComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/models/api-response.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "ApiResponse",
+                "coveragePercent": 0,
+                "coverageCount": "0/4",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/models/friend.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "Friend",
+                "coveragePercent": 0,
+                "coverageCount": "0/6",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/models/pagination.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "Pagination",
+                "coveragePercent": 0,
+                "coverageCount": "0/7",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/models/pagination.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "PaginationLinks",
+                "coveragePercent": 0,
+                "coverageCount": "0/4",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/services/friends/friends.service.ts",
+                "type": "injectable",
+                "linktype": "injectable",
+                "name": "FriendsService",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/services/server-events/event-source-mock.ts",
+                "type": "class",
+                "linktype": "classe",
+                "name": "EventSourceMock",
+                "coveragePercent": 0,
+                "coverageCount": "0/7",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/services/server-events/server-events.service.ts",
+                "type": "injectable",
+                "linktype": "injectable",
+                "name": "ServerEventsService",
+                "coveragePercent": 66,
+                "coverageCount": "4/6",
+                "status": "good"
+            },
+            {
+                "filePath": "src/environments/environment.development.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "environment",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/environments/environment.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "environment",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/utils/test-utils.ts",
+                "type": "function",
+                "linktype": "miscellaneous",
+                "linksubtype": "function",
+                "name": "getTestIdSelectorString",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/utils/test-utils.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "testUtils",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            }
+        ]
+    }
+}
